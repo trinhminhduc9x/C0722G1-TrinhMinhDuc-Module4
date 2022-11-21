@@ -6,6 +6,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
+
 @Controller
 public class SpiceDisplayController {
 
@@ -17,7 +20,7 @@ public class SpiceDisplayController {
 
     @PostMapping("/save")
     public String save(@RequestParam("name") String[] name, Model model) {
-        model.addAttribute("name", name);
+        model.addAttribute("result", Arrays.toString(name));
         return "/list";
     }
 }
