@@ -11,4 +11,7 @@ public interface MailBoxService {
     void save(MailBox mailBox);
 
     public List<MailBox> findByName(String keyword);
+    List<String> findLanguagesListAll();
+    List<String> findPageListAll();
+
 }

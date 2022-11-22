@@ -17,22 +17,11 @@
             <td>
                 Languages :
             </td>
-            <td>
-                <form:input path="languages"/>
-            </td>
+            <td><form:select path="languages" items="${LanguagesListAll}"/></td>
         </tr>
         <tr>
             <td>Page size:</td>
-            <td>
-                <form:select path="page">
-                    <form:option value="5">5</form:option>
-                    <form:option value="10">10</form:option>
-                    <form:option value="15">15</form:option>
-                    <form:option value="25">25</form:option>
-                    <form:option value="50">50</form:option>
-                    <form:option value="100">100</form:option>
-                </form:select>
-            </td>
+            <td><form:select path="page" items="${PageListAll}"/></td>
             <td>Emails per page</td>
         </tr>
         <tr>

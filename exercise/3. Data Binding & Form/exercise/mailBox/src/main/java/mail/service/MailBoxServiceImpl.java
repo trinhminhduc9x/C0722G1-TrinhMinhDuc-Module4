@@ -15,7 +15,7 @@ public class MailBoxServiceImpl implements MailBoxService {
 
     @Override
     public List<MailBox> findAll() {
-        return repository.findAll();
+        return repository.findMailAll();
     }
 
     @Override
@@ -26,6 +26,16 @@ public class MailBoxServiceImpl implements MailBoxService {
     @Override
     public List<MailBox> findByName(String keyword) {
         return repository.findByName(keyword);
+    }
+
+    @Override
+    public List<String> findLanguagesListAll() {
+        return repository.findLanguagesListAll();
+    }
+
+    @Override
+    public List<String> findPageListAll() {
+        return repository.findPageListAll();
     }
 
 

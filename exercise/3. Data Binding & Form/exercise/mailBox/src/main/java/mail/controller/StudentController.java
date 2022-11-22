@@ -38,6 +38,8 @@ public class StudentController {
     @GetMapping("/create")
     public String showCreatPage(Model model) {
         model.addAttribute("MailBox", new MailBox());
+        model.addAttribute("LanguagesListAll", mailBoxService.findLanguagesListAll());
+        model.addAttribute("PageListAll", mailBoxService.findPageListAll());
         return "create";
 
     }

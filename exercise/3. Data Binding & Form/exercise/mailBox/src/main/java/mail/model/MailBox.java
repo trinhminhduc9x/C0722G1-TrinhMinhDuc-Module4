@@ -2,14 +2,14 @@ package mail.model;
 
 public class MailBox {
     private String languages;
-    private int page;
+    private String page;
     private boolean spams;
     private String signature;
 
     public MailBox() {
     }
 
-    public MailBox(String languages, int page, boolean spams, String signature) {
+    public MailBox(String languages, String page, boolean spams, String signature) {
         this.languages = languages;
         this.page = page;
         this.spams = spams;
@@ -24,11 +24,11 @@ public class MailBox {
         this.languages = languages;
     }
 
-    public int getPage() {
+    public String getPage() {
         return page;
     }
 
-    public void setPage(int page) {
+    public void setPage(String page) {
         this.page = page;
     }
 
@@ -46,15 +46,5 @@ public class MailBox {
 
     public void setSignature(String signature) {
         this.signature = signature;
-    }
-
-    @Override
-    public String toString() {
-        return "MailBox{" +
-                "languages='" + languages + '\'' +
-                ", page=" + page +
-                ", spams=" + spams +
-                ", signature='" + signature + '\'' +
-                '}';
     }
 }
