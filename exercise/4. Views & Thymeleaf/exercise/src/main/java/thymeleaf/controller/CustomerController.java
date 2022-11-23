@@ -69,9 +69,9 @@ public class CustomerController {
         return "/product/view";
     }
 
-//    @GetMapping("/search")
-//    public ModelAndView showListSearch(@RequestParam(value = "name", required = false, defaultValue = "") String kq) {
-//        return new ModelAndView("/product/list", "product", productService.findByName(kq));
-//    }
+    @GetMapping("/search")
+    public ModelAndView showListSearch(@RequestParam(value = "name", required = false, defaultValue = "") String name) {
+        return new ModelAndView("/product/list", "product", productService.findByName(name));
+    }
 
 }
