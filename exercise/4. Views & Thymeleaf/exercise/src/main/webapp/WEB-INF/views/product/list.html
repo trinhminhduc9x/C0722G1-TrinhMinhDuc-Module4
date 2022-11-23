@@ -119,6 +119,33 @@
     </div>
 </div>
 
+<!-- Modal Delete-->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <form action="/product/delete" method="post">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Deleting</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Are you sure about that?
+                    Delete <span class="fw-bold text-danger" id="removeCustomerName"></span>?
+                    <input type="hidden" id="removeCustomerId" name="id">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                        thoat
+                    </button>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
 
 <!-- Modal view-->
 <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="exampleModalLabel1"
@@ -127,7 +154,7 @@
         <form>
             <div class="modal-content">
                 <div class="modal-header">
-                    <h2 class="modal-title text-danger" id="exampleModalLabel1">Blog</h2>
+                    <h2 class="modal-title text-danger" id="exampleModalLabel1"></h2>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                             aria-label="Close"></button>
                 </div>
