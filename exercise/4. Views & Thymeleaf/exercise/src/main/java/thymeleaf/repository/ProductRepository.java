@@ -12,12 +12,13 @@ public class ProductRepository implements IProductRepository{
 
     static {
         productList = new ArrayList<>();
-        productList.add( new Product(1, "xe may", "1000000", "mau xanh","honda"));
-        productList.add( new Product(2, "xe dap", "2000000", "mau do","honda"));
-        productList.add( new Product(3, "oto", "3000000", "mau tim","honda"));
-        productList.add( new Product(4, "may anh", "4000000", "mau vang","honda"));
-        productList.add( new Product(5, "may bay", "5000000", "mau den","honda"));
-        productList.add( new Product(6, "xe tai", "6000000", "mau xanh","honda"));
+        productList.add( new Product(0, "xe may", "1000000", "mau xanh","honda"));
+        productList.add( new Product(1, "xe dap", "2000000", "mau do","honda"));
+        productList.add( new Product(2, "oto", "3000000", "mau tim","honda"));
+        productList.add( new Product(3, "may anh", "4000000", "mau vang","honda"));
+        productList.add( new Product(4, "may bay", "5000000", "mau den","honda"));
+        productList.add( new Product(5, "xe tai", "6000000", "mau xanh","honda"));
+        productList.add( new Product(6, "xe tai lon", "6000000", "mau xanh","honda"));
     }
     @Override
     public List<Product> findAll() {

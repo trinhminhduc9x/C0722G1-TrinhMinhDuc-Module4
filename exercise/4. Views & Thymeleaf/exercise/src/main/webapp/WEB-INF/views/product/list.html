@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout :: head">
+</head>
+<body>
+<h3>product</h3>
+<p>
+    <a th:href="@{/product/create}">
+        Add new product
+    </a>
+</p>
+<form action="/product/search" method="get">
+    <tr>
+        <td>search by name</td>
+        <input type="text" name="kq">
+        <button type="submit">commit</button>
+    </tr>
+</form>
+<div class="container-fluid" style="margin-top: 20px">
+    <div class="row">
+        <div class="col-md-12">
+
+            <table class="table table-hover table-striped" style="width: 100%">
+                <thead>
+                <tr>
+                    <th>stt</th>
+                    <th>Name</th>
+                    <th>price</th>
+                    <th>describe</th>
+                    <th>producer</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                    <th>View</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="row,rowStat : ${product}">
+                    <td th:text="${rowStat.count}"></td>
+                    <td th:text="${row.name}"></td>
+                    <td th:text="${row.price}"></td>
+                    <td th:text="${row.describe}"></td>
+                    <td th:text="${row.producer}"></td>
+
+
+
+                    <!-- EDIT -->
+                    <td>
+                        <a th:href="@{/product/{id}/edit(id=${row.getId()})}">
+                        <buton class="btn btn-success">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-pencil" viewBox="0 0 16 16">
+                                <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
+                            </svg>
+                        </buton>
+                    </a></td>
+
+
+                    <!--  Delete-->
+                    <td>
+                        <!-- DELETE -->
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                th:attr="onclick=|showModalDelete('${row.id}','${row.name}')|">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-trash" viewBox="0 0 16 16">
+                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                                <path fill-rule="evenodd"
+                                      d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                            </svg>
+                        </button>
+                    </td>
+
+
+                    <!-- VIEW -->
+                    <td>
+
+                        <button th:attr="onclick=|infoToDetail('${row.name}','${row.price}','${row.describe}','${row.producer}')|"
+                                class="btn btn-warning"
+                                type="button" data-bs-toggle="modal" data-bs-target="#detailModal">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-search"
+                                 viewBox="0 0 16 16">
+                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                            </svg>
+                        </button>
+                    </td>
+
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+<!--modal Delete-->
+<div class="modal fade" id="deleteButton" tabindex="-1" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <form action="/product/delete" method="post">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Deleting</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Are you sure about that?
+                    Delete <span class="fw-bold text-danger" id="removeCustomerName"></span>?
+                    <input type="hidden" id="removeCustomerId" name="id">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                        thoat
+                    </button>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<!-- Modal view-->
+<div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="exampleModalLabel1"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <form>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title text-danger" id="exampleModalLabel1">Blog</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                </div>
+                <div class="modal-body ">
+                    <b>Name :</b>
+                    <input type="text" readonly name="id" id="detailName" class="form-control"><br>
+                    <b>Price :</b>
+                    <input type="text" readonly name="name" id="detailPrice" class="form-control"><br>
+                    <b>Describe :</b>
+                    <input type="text" readonly name="idCard" id="detailDescribe" class="form-control"><br>
+                    <b>Producer :</b>
+                    <input type="text" readonly name="note" id="detailProducer" class="form-control"><br>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<script>
+    // modalDelrte
+    function showModalDelete(deleteCustomerId, deleteCustomerName) {
+        $('#removeCustomerName').text(deleteCustomerName);
+        $('#removeCustomerId').val(deleteCustomerId);
+    }
+
+    window.onload = function () {
+        let msg = $("#noticeMsgModal").val();
+        if (msg != null && msg !== "") {
+            $(document).ready(function () {
+                $("#noticeMsg").modal("show");
+            });
+        }
+    }
+
+    function infoToDetail(name, price, describe, producer) {
+        document.getElementById("detailName").value = name;
+        document.getElementById("detailPrice").value = price;
+        document.getElementById("detailDescribe").value = describe;
+        document.getElementById("detailProducer").value = producer;
+    }
+</script>
+<footer th:replace="/layout :: footer"></footer>
+</body>
+</html>

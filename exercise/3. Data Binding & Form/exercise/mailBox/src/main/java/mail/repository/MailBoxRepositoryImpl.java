@@ -20,17 +20,23 @@ public class MailBoxRepositoryImpl implements IMailboxRepository {
         mailBoxList.add(new MailBox("Anh", "5", true, "JAVA"));
         mailBoxList.add(new MailBox("Viet", "10", false, "C#"));
         mailBoxList.add(new MailBox("Trung", "15", true, "C#"));
+        mailBoxList.add(new MailBox("duc", "15", true, "C#"));
+        mailBoxList.add(new MailBox("linh", "15", true, "C#"));
     }
+
     static {
         languagesList = new ArrayList<>();
         languagesList.add(new String("Anh"));
-        languagesList.add(new String("Viet" ));
+        languagesList.add(new String("Viet"));
         languagesList.add(new String("Trung"));
+        languagesList.add(new String("duc"));
+        languagesList.add(new String("linh"));
     }
+
     static {
         pageList = new ArrayList<>();
         pageList.add(new String("1"));
-        pageList.add(new String("5" ));
+        pageList.add(new String("5"));
         pageList.add(new String("10"));
         pageList.add(new String("50"));
         pageList.add(new String("100"));

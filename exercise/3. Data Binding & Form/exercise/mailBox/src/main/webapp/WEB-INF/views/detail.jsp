@@ -11,6 +11,5 @@
     <title>Title</title>
 </head>
 <body>
-<h3> Student ID: ${studentID} </h3>
 </body>
 </html>
