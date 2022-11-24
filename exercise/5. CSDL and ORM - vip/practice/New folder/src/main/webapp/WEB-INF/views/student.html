@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:replace="~{/layout::common}" class="divOut"></div>
+<strong style="color: green" th:text="${message}"></strong> <!--text -->
+<p th:if="${studentList.isEmpty()}" style="color:red">List Empty</p>
+
+<form action="/student/search">
+    <input type="text" name="kq">
+</form>
+
+<table class="table" border="1" th:unless="${studentList.isEmpty()}">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Gender</th>
+        <th>Edit</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="student : ${studentList}">
+        <td th:text="${student.id}"></td>
+        <td th:text="${student.name}">Ho Quang Hieu</td>
+        <td th:switch="${student.gender}">
+            <span th:case="0">Female</span>
+            <span th:case="1">Male</span>
+            <span th:case="*">LGBT</span> <!--default-->
+        </td>
+        <td>
+            <a th:href="@{/student/edit/(id = ${student.id})}">Edit1</a> <!--key-value-->
+            <a th:href="@{/student/edit/__${student.id}__}">Edit2</a> <!--value-->
+            <a th:href="@{/student/edit/{id}(id = ${student.id})}">Edit3</a> <!--value-->
+<!--            <a href="https://vnexpress.net/">Doc bao</a>-->
+<!--            <a href="home.html">Doc bao</a> &lt;!&ndash;HTML tĩnh &ndash;&gt;-->
+
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<div th:replace="~{/layout::abc}" class="divOut"></div>
+
+<!--<div th:with="name='Hoang', age='18'">-->
+<!--    <h3 th:text="${name}"></h3>-->
+<!--</div>-->
+</body>
+</html>

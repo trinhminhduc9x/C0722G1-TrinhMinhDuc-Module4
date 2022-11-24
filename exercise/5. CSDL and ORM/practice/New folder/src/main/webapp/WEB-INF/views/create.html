@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:insert="~{/layout::common}" class="divOut"></div>
+<h1>Create Student</h1>
+<form th:object="${student}" method="post">
+    <table class="table">
+<!--        <tr>-->
+<!--            <th>ID</th>-->
+<!--            <th>-->
+<!--                <input type="number" th:field="*{id}"/>-->
+<!--            </th>-->
+<!--        </tr>-->
+        <tr>
+            <td>Name</td>
+            <td>
+                <input type="text" th:field="*{name}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>Gender:</td>
+            <td>
+                <input type="radio" th:field="*{gender}" value="1" /> Male
+                <input type="radio" th:field="*{gender}" value="0" /> FeMale
+                <input type="radio" th:field="*{gender}" value="2" /> LGBT
+            </td>
+        </tr>
+<!--        <tr>-->
+<!--            <th>Languages</th>-->
+<!--            <th>-->
+<!--&lt;!&ndash;                <form:checkboxes path="languages" items="${languageList}" />&ndash;&gt;-->
+<!--                <input type="checkbox" th:each="lang: ${languageList}"-->
+<!--                       th:text="${lang + 'LG'}"-->
+<!--                       th:field="*{languages}" th:value="${lang}">-->
+<!--            </th>-->
+<!--        </tr>-->
+<!---->
+        <tr >
+            <td colspan="2">
+                <button type="submit">Create</button>
+            </td>
+        </tr>
+
+    </table>
+</form>
+</body>
+</html>
