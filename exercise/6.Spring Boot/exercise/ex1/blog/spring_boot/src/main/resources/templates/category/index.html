@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!--<head th:replace="/layout :: head">-->
+</head>
+<body>
+<h3>blog</h3>
+<p>
+    <a th:href="@{/blog/create}">
+        Add new blog
+    </a>
+</p>
+<form action="/blog/search" method="get">
+    <tr>
+        <td>search by name</td>
+        <input type="text" name="kq">
+        <button type="submit">commit</button>
+    </tr>
+</form>
+<table id="customers">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>price</th>
+        <th>producer</th>
+        <th>Edit</th>
+        <th>Delete</th>
+        <th>View</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="blog : ${productList}">
+        <td th:text="${blog.id}"></td>
+        <td th:text="${blog.name}"></td>
+        <td th:text="${blog.price}"></td>
+        <td th:text="${blog.producer}"></td>
+        <td><a th:href="@{/blog/{id}/edit(id=${blog.id})}">edit</a></td>
+        <td>
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                DELETE
+            </button>
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+                 th:onclick="|getIdToDelete('${blog.id}')|"
+            >
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="#" th:action="@{/blog/{id}/delete(id=${blog.id})}"  novalidate="novalidate">
+                                <p>Do you want to delete :</p>
+                                <div>
+                                    <div class="input-group flex-nowrap">
+                                        <span class="input-group-text" id="addon-wrapping1">Id</span>
+                                        <input type="text" readonly class="form-control" id="idDelete" name="id">
+                                    </div>
+<!--                                    <div class="input-group flex-nowrap mt-5">-->
+<!--                                        <span class="input-group-text" id="addon-wrapping2">Name</span>-->
+<!--                                        <input type="text" readonly class="form-control" id="nameDelete">-->
+<!--                                    </div>-->
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-success" data-bs-dismiss="modal">CLOSE</button>
+                                    <button type="submit" class="btn btn-outline-danger">DELETE</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </td>
+        <td><a th:href="@{/blog/{id}/view(id=${blog.id})}">view</a></td>
+    </tr>
+    </tbody>
+</table>
+<script>
+    // <%--    thêm value cho thẻ input--%>
+    function getIdToDelete(id,) {
+        document.getElementById("idDelete").value = id;
+        document.getElementById("nameDelete").value = name;
+    }
+</script>
+<!--<footer th:replace="/layout :: footer"></footer>-->
+</body>
+</html>
