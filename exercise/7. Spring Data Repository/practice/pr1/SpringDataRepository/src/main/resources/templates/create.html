@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:insert="~{/layout::common}" class="divOut"></div>
+<h1>Create Student</h1>
+<form th:object="${student}" method="post">
+    <table class="table">
+        <tr>
+            <td>Name</td>
+            <td>
+                <input type="text" th:field="*{name}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>Gender:</td>
+            <td>
+                <input type="radio" th:field="*{gender}" value="1"/> Male
+                <input type="radio" th:field="*{gender}" value="0"/> FeMale
+                <input type="radio" th:field="*{gender}" value="2"/> LGBT
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Acucunt Name :
+            </td>
+            <td>
+                <input type="text" th:field="*{account.accountName}">
+                <input type="text" th:field="*{account.accountName}">
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                Class :
+            </td>
+            <td>
+                <select th:field="*{classRoom}">
+                    <option th:each="item : ${classRoomList}"
+                            th:value="${item.id}" th:text="${item.name}"></option>
+                </select>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                Courses :
+            </td>
+            <td>
+                <input type="checkbox" th:field="*{courses}"
+                       th:each="item : ${courseList}"
+                       th:text="${item.name}" th:value="${item.id}"
+                />
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <button type="submit">Create</button>
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>
