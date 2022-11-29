@@ -33,6 +33,7 @@
         <th>Name</th>
         <th>content</th>
         <th>note</th>
+        <th>dateCreated</th>
         <th>Category</th>
         <th>Edit</th>
         <th>Delete</th>
@@ -46,6 +47,7 @@
         <td th:text="${blog.name}"></td>
         <td th:text="${blog.content}"></td>
         <td th:text="${blog.note}"></td>
+        <td th:text="${blog.dateCreated}"></td>
         <td th:text="${blog.category.name}"></td>
 
         <!-- EDIT -->
@@ -84,7 +86,7 @@
                     </div>
                     <div class="modal-body ">
                         <b>ID Blog :</b>
-                        <input type="text" readonly name="id" id="idDelete" class="form-control"><br>
+                        <input type="hidden" readonly name="id" id="idDelete" class="form-control"><br>
                         <b>Name Blog :</b>
                         <input type="text" readonly name="name" id="nameDelete" class="form-control"><br>
                         <h3 class="text-danger">Are you sure want delete </h3>

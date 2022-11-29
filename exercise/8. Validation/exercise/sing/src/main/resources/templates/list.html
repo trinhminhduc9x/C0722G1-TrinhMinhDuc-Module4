@@ -3,46 +3,50 @@
 <head th:replace="/layout :: head">
 </head>
 <body>
+
+
 <div th:replace="~{/layout::navbar}"></div>
-<h3>CATEGORY</h3>
+<h3 style="text-align: center">SING</h3>
 <p>
-    <a th:href="@{/category/create}">
-        <input class="m-3 btn btn-danger" type="submit" value=" Add new category">
+    <a th:href="@{/create}">
+        Add new sing
     </a>
 </p>
-<form action="/category/search" method="get">
-    <tr>
-        <td>search by name</td>
-        <input type="text" name="kq">
-        <button type="submit">commit</button>
-    </tr>
-</form>
+
 <table id="customers">
     <thead>
     <tr>
         <th>ID</th>
         <th>Name</th>
+        <th>artist</th>
+        <th>category</th>
         <th>Edit</th>
         <th>Delete</th>
         <th>View</th>
     </tr>
     </thead>
     <tbody>
-    <tr th:each="category,loop  : ${categoryPage}">
-        <td th:text="${loop.count  + categoryPage.size * categoryPage.number}"></td>
-        <td th:text="${category.name}"></td>
-        <td><a th:href="@{/category/{id}/edit(id=${category.id})}">edit</a></td>
+    <tr th:each="sing : ${singList}">
+        <td th:text="${sing.id}"></td>
+        <td th:text="${sing.name}"></td>
+        <td th:text="${sing.artist}"></td>
+        <td th:text="${sing.category}"></td>
+
+        <!-- EDIT -->
+        <td><a th:href="@{/{id}/edit(id=${sing.id})}">
+            <buton class="btn btn-success">EDIT</buton>
+        </a></td>
+
         <td>
             <!-- DELETE -->
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#deleteModal"
-                    th:attr="onclick=|getIdToDelete('${category.id}','${category.name}')|">
+                    th:attr="onclick=|getIdToDelete('${sing.id}','${sing.name}')|">
                 DELETE
             </button>
         </td>
-
         <td>
             <!-- VIEW -->
-            <button th:attr="onclick=|infoToDetail('${category.id}','${category.name}')|"
+            <button th:attr="onclick=|infoToDetail('${sing.id}','${sing.name}','${sing.artist}','${sing.category}')|"
                     class="btn btn-warning"
                     type="button" data-bs-toggle="modal" data-bs-target="#detailModal">
                 VIEW
@@ -52,7 +56,7 @@
         <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel"
              aria-hidden="true">
             <div class="modal-dialog">
-                <form action="/category/delete" method="get">
+                <form action="#" th:action="@{/{id}/delete(id=${sing.id})}">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h2 class="modal-title text-danger" id="exampleModalLabel">Blog</h2>
@@ -61,9 +65,9 @@
                         </div>
                         <div class="modal-body ">
                             <b>ID Blog :</b>
-                            <input type="hidden" readonly name="id" id="idDelete" class="form-control"><br>
+                            <input type="text" readonly name="id" id="idDelete" class="form-control"><br>
                             <b>Name Blog :</b>
-                            <input type="text" readonly name="nameDelete" id="nameDelete" class="form-control"><br>
+                            <input type="text" readonly name="name" id="nameDelete" class="form-control"><br>
                             <h3 class="text-danger">Are you sure want delete </h3>
                         </div>
                         <div class="modal-footer">
@@ -88,10 +92,14 @@
                                     aria-label="Close"></button>
                         </div>
                         <div class="modal-body ">
-                            <b>ID :</b>
+                            <b>ID Blog :</b>
                             <input type="text" readonly name="id" id="detailId" class="form-control"><br>
-                            <b>Name :</b>
+                            <b>Name Blog :</b>
                             <input type="text" readonly name="name" id="detailName" class="form-control"><br>
+                            <b>Content Blog :</b>
+                            <input type="text" readonly name="content" id="detailArtist" class="form-control"><br>
+                            <b>Author Blog :</b>
+                            <input type="text" readonly name="note" id="detailCategory" class="form-control"><br>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -100,35 +108,12 @@
                 </form>
             </div>
         </div>
-        </div>
-
     </tr>
     </tbody>
 </table>
 
-<!-- Phan Trang -->
-<div class="d-flex justify-content-end ">
-    <ul class="pagination">
-        <li class="page-item disabled" th:if="${categoryPage.number == 0}">
-            <a class="page-link" href="">Previous</a>
-        </li>
-        <li class="page-item" th:if="${categoryPage.number > 0}">
-            <a class="page-link"
-               th:href="@{/category/list(page=${categoryPage.number - 1}, sort=${sortValue}, name=${name})}">Previous</a>
-        </li>
-        <li class="page-item disabled">
-            <a class="page-link" href=""><span th:text="${categoryPage.number + 1}"></span> / <span
-                    th:text="${categoryPage.totalPages}"></span></a>
-        </li>
-        <li class="page-item disabled" th:if="${categoryPage.number >= categoryPage.totalPages - 1}">
-            <a class="page-link" href="">Next</a>
-        </li>
-        <li class="page-item" th:if="${categoryPage.number < categoryPage.totalPages - 1}">
-            <a class="page-link"
-               th:href="@{/category/list(page=${categoryPage.number + 1}, sort=${sortValue}, name=${name})}">Next</a>
-        </li>
-    </ul>
-</div>
+
+
 <script>
     // <%--    thêm value cho thẻ delete--%>
     function getIdToDelete(id, name) {
@@ -136,11 +121,12 @@
         document.getElementById("idDelete").value = id;
         document.getElementById("nameDelete").value = name;
     }
-
     // <%--    thêm value cho thẻ view--%>
     function infoToDetail(id, name, content, note) {
         document.getElementById("detailId").value = id;
         document.getElementById("detailName").value = name;
+        document.getElementById("detailArtist").value = content;
+        document.getElementById("detailCategory").value = note;
     }
 </script>
 <footer th:replace="/layout :: footer"></footer>

@@ -26,6 +26,10 @@
             <input type="text" th:field="*{note}"/>
         </div>
         <div>
+            <label>dateCreated</label>
+            <input type="date" th:field="*{dateCreated}"/>
+        </div>
+        <div>
             <label>Category:</label>
             <select th:field="*{category}">
                 <option th:each="p : ${categoryList}"

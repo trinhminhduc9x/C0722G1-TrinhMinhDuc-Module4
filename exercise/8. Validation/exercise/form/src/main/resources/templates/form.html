@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous">
+
+    </script>
+    <!--               th:field="*{firstName}"-->
+
+    <!--        <td th:if="${#fields.hasErrors('firstName')}"-->
+    <!--            th:errors="*{firstName}">Name Error-->
+    <!--        </td>-->
+</head>
+<body>
+<strong style="color: green" th:text="${message}"></strong> <!--text -->
+<form class="row g-3" th:action="@{/}" th:object="${formDto}" method="POST">>
+
+    <div class="col-md-4">
+        <label for="validationDefault01" class="form-label">First name</label>
+        <input type="text" th:field="*{firstName}" class="form-control" id="validationDefault01" required>
+        <td th:if="${#fields.hasErrors('firstName')}"
+            th:errors="*{firstName}">Name Error
+        </td>
+    </div>
+    <div class="col-md-4">
+        <label for="validationDefault02" class="form-label">Last name</label>
+        <input type="text" th:field="*{lastName}" class="form-control" id="validationDefault02" required>
+        <td th:if="${#fields.hasErrors('lastName')}"
+            th:errors="*{lastName}">Name Error
+        </td>
+    </div>
+    <div class="col-md-4">
+        <label for="validationDefault02" class="form-label">Email</label>
+        <input type="text" th:field="*{Email}" class="form-control" id="validationDefault03" required>
+        <td th:if="${#fields.hasErrors('Email')}"
+            th:errors="*{Email}">Email Error
+        </td>
+    </div>
+    <div class="col-md-6">
+        <label for="validationDefault02" class="form-label">phoneNumber</label>
+        <input type="text" th:field="*{phoneNumber}" class="form-control" id="validationDefault04" required>
+        <td th:if="${#fields.hasErrors('phoneNumber')}"
+            th:errors="*{phoneNumber}">Email Error
+        </td>
+    </div>
+    <div class="col-md-3">
+        <label for="validationDefault05" class="form-label">Age </label>
+        <input type="text" th:field="*{Age}" class="form-control" id="validationDefault05" required>
+        <td th:if="${#fields.hasErrors('Age')}"
+            th:errors="*{Age}">Email Error
+        </td>
+    </div>
+
+    <div class="col-12">
+        <button class="btn btn-primary" type="submit">Submit form</button>
+    </div>
+</form>
+</body>
+</html>

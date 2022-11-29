@@ -1,7 +1,10 @@
 package com.spring_boot.model;
 
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 public class Blog {
@@ -16,18 +19,12 @@ public class Blog {
 
     private String note;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date dateCreated;
 
     @ManyToOne()
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     private Category category;
-
-    public Blog(int id, String name, String content, String note, Category category) {
-        this.id = id;
-        this.name = name;
-        this.content = content;
-        this.note = note;
-        this.category = category;
-    }
 
     public Blog() {
     }
@@ -64,6 +61,14 @@ public class Blog {
         this.note = note;
     }
 
+    public Date getDateCreated() {
+        return dateCreated;
+    }
+
+    public void setDateCreated(Date dateCreated) {
+        this.dateCreated = dateCreated;
+    }
+
     public Category getCategory() {
         return category;
     }
@@ -71,6 +76,4 @@ public class Blog {
     public void setCategory(Category category) {
         this.category = category;
     }
-
-
 }

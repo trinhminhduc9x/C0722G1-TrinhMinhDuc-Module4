@@ -10,20 +10,33 @@
     </a>
 </p>
 <div id="form">
-    <form th:action="@{/blog/save}" th:object="${blog}"
-          method="POST" novalidate="novalidate">
+    <form action="/blog/save" th:object="${blogDto}"
+          method="POST" >
         <input type="hidden" th:field="*{id}"/>
         <div>
             <label>Name</label>
             <input type="text" th:field="*{name}"/>
+            <td th:if="${#fields.hasErrors('name')}"
+                th:errors="*{name}">
+            </td>
         </div>
         <div>
             <label>content</label>
             <input type="text" th:field="*{content}"/>
+            <td th:if="${#fields.hasErrors('content')}"
+                th:errors="*{content}">
+            </td>
         </div>
         <div>
             <label>note</label>
             <input type="text" th:field="*{note}"/>
+            <td th:if="${#fields.hasErrors('note')}"
+                th:errors="*{note}">
+            </td>
+        </div>
+        <div>
+            <label>dateCreated</label>
+            <input type="date" th:field="*{dateCreated}"/>
         </div>
         <div>
             <label>Category:</label>

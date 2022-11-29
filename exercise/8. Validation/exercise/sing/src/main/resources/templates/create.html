@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout :: head">
+<body>
+<h3>Add </h3>
+<p>
+    <a th:href="@{/list}">
+        Back to  list
+    </a>
+</p>
+<div id="form">
+    <form th:action="@{/save}"  th:object="${SingDto}"  method="POST" novalidate="novalidate">
+
+        <div>
+            <label>Name</label>
+            <input type="text"  th:field="*{name}"/>
+            <td
+                th:errors="*{name}">Name Error
+            </td>
+        </div>
+
+
+        <div>
+            <label>artist</label>
+            <input type="text"  th:field="*{artist}"/>
+            <td
+                th:errors="*{artist}">artist Error
+            </td>
+        </div>
+        <div>
+            <label>category</label>
+            <input type="text"  th:field="*{category}"/>
+            <td
+                th:errors="*{category}">category Error
+            </td>
+        </div>
+        <input type="submit" value="Save"/>
+    </form>
+</div>
+<footer th:replace="/layout :: footer"></footer>
+</body>
+</html>
