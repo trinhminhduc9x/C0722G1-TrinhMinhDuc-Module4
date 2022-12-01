@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head th:replace="/layout :: head">
+</head>
+<body>
+<div th:replace="~{/layout::navbar}"></div>
+<h3 style="text-align: center">BOOK</h3>
+<p>
+    <a th:href="@{/book/create}">
+        Add new BOOK
+    </a>
+</p>
+
+<table id="customers">
+    <thead>
+    <tr>
+        <th>stt</th>
+        <th>tên sách</th>
+        <th>tổng số sách</th>
+        <th>số sách hiện có</th>
+        <th>số sách đã mượn</th>
+        <th>KÍCH VÀO ĐÂY ĐỂ MƯỢN</th>
+        <th>KÍCH VÀO ĐÂY ĐỂ TRẢ</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="book,loop : ${bookList}">
+
+
+        <td th:text="${book.id}"></td>
+        <td th:text="${book.name}"></td>
+        <td th:text="${book.amount}"></td>
+        <td th:text="${book.ordersssAndPaysss.getPayasc()}"></td>
+        <td th:text="${book.ordersssAndPaysss.getOrderasc()}"></td>
+
+
+        <!-- order -->
+        <td>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#deleteModal"
+                    th:attr="onclick=|getIdToDelete('${book.id}','${book.ordersssAndPaysss.passBook}','${book.name}')|">
+                ORDER
+            </button>
+        </td>
+        <!-- pay -->
+        <td>
+            <a th:href="@{/book/{id}/pay(id=${book.id})}">
+                <buton class="btn btn-success">PAY</buton>
+            </a>
+        </td>
+
+    </tr>
+
+    <!-- Modal oer-->
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <form action="/book/oder" method="get">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="modal-title text-danger" id="exampleModalLabel">Blog</h2>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body ">
+                        <b>id là</b>
+                        <input type="hidden" readonly name="id" id="id" class="form-control"><br>
+                        <b>mã số sách được mượn là :</b>
+                        <input type="text" readonly name="maSo" id="nameMaso" class="form-control"><br>
+                        <b>sách được mượn ten là :</b>
+                        <input type="text" readonly name="nameBook" id="nameBook" class="form-control"><br>
+                        <h3 class="text-danger">bạn đã mượn sách </h3>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" value="delete">Yes</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+
+    </tbody>
+</table>
+
+
+<script>
+    // <%--    thêm value cho thẻ oder--%>
+    function getIdToDelete(id, PassBook, bookName) {
+        document.getElementById("id").value = id;
+        document.getElementById("nameMaso").value = PassBook;
+        document.getElementById("nameBook").value = bookName;
+    }
+
+</script>
+<footer th:replace="/layout :: footer"></footer>
+</body>
+</html>

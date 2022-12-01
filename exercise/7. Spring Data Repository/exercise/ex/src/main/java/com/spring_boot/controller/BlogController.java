@@ -38,7 +38,7 @@ public class BlogController {
     public String goPage(Model model,
                          @PageableDefault(3) Pageable pageable,
                          @RequestParam Optional<String> name,
-                         @RequestParam(required = false, defaultValue = "") String note) throws Exception {
+                         @RequestParam(required = false, defaultValue = "") String note) {
         for (Sort.Order order : pageable.getSort()) {
             model.addAttribute("sortValue", order.getProperty());
         }
@@ -50,11 +50,7 @@ public class BlogController {
         model.addAttribute("name", keyName);
         model.addAttribute("note", note);
 
-        if (blogPage.isEmpty()) {
-            throw new Exception();
-        } else {
-            return "blog/list";
-        }
+        return "blog/list";
     }
 
     @GetMapping("/create")
@@ -70,16 +66,16 @@ public class BlogController {
                        @ModelAttribute("blogDto") BlogDto blogDto
             , BindingResult bindingResult
             , Model model) {
-
-//        if (bindingResult.hasErrors()) {
-//            model.addAttribute("categoryList", categoryService.findAll());
-//            return "/blog/create";
-//        } else {
+        new BlogDto().validate(blogDto, bindingResult);
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("categoryList", categoryService.findAll());
+            return "/blog/create";
+        } else {
             Blog blog = new Blog();
             BeanUtils.copyProperties(blogDto, blog);
             blogService.save(blog);
             return "redirect:/blog/list";
-//        }
+        }
     }
 
     @GetMapping("/{id}/edit")
@@ -101,9 +97,5 @@ public class BlogController {
         return "redirect:/blog/list";
     }
 
-    @ExceptionHandler(value = Exception.class)
-    public String error() {
-        return "/error";
-    }
 
 }

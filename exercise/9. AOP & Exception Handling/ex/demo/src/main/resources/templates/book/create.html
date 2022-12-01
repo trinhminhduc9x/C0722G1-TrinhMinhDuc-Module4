@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout :: head">
+<body>
+<div th:replace="~{/layout::navbar}"></div>
+<h3>aaaaa</h3>
+<p>
+    <a th:href="@{/book/list}">
+        Back to book list
+    </a>
+</p>
+<div id="form">
+    <form th:action="@{/book/save}" th:object="${book}"
+          method="POST" novalidate="novalidate">
+        <input type="hidden" th:field="*{id}"/>
+        <div>
+            <label>Name</label>
+            <input type="text" th:field="*{name}"/>
+        </div>
+        <div>
+            <label>amount</label>
+            <input type="text" th:field="*{amount}"/>
+        </div>
+        <div>
+            <label>mã số sách :</label>
+            <select th:field="*{ordersssAndPaysss}">
+                <option th:each="p : ${OrderacsAndPayacs}"
+                        th:value="${p.id}"
+                        th:text="${p.passBook}">
+                </option>
+            </select>
+        </div>
+        <input type="submit" value="Save"/>
+    </form>
+</div>
+<footer th:replace="/layout :: footer"></footer>
+</body>
+</html>

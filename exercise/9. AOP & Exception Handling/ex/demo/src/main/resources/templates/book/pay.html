@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout :: head">
+<body>
+<div th:replace="~{/layout::navbar}"></div>
+<h3>pay</h3>
+<p>
+    <a th:href="@{/book/list}">
+        Back to book list
+    </a>
+</p>
+<div id="form">
+    <form th:href="@{/book/pay}" th:object="${OrderacsAndPayacs}"
+          method="POST" novalidate="novalidate">
+        <input type="hidden" th:field="*{id}"/>
+        <input type="hidden" th:field="*{passBook}"/>
+        <div>
+            <label>mã số sách :</label>
+            <input type="number" name="passBook"/>
+        </div>
+        <input type="submit" value="Save"/>
+    </form>
+</div>
+<footer th:replace="/layout :: footer"></footer>
+</body>
+</html>

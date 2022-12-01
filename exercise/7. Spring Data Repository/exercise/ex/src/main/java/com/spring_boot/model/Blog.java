@@ -11,7 +11,7 @@ public class Blog {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     private String name;
 
@@ -19,8 +19,7 @@ public class Blog {
 
     private String note;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date dateCreated;
+    private String dateCreated;
 
     @ManyToOne()
     @JoinColumn(name = "category_id", referencedColumnName = "id")
@@ -29,11 +28,11 @@ public class Blog {
     public Blog() {
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -61,11 +60,11 @@ public class Blog {
         this.note = note;
     }
 
-    public Date getDateCreated() {
+    public String getDateCreated() {
         return dateCreated;
     }
 
-    public void setDateCreated(Date dateCreated) {
+    public void setDateCreated(String dateCreated) {
         this.dateCreated = dateCreated;
     }
 

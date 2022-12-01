@@ -12,31 +12,29 @@ import javax.validation.constraints.Size;
 import java.lang.annotation.Annotation;
 import java.util.Date;
 
-//@Component
+
 public class BlogDto implements Validator {
-
-
-    private int id;
+    private Integer id;
 
     @NotBlank
-    @Size(min = 5, max = 45, message = "{number.length}")
+    @Size(min = 5, max = 45, message = "Khong hop le")
     private String name;
     @NotBlank
-    @Size(min = 5, max = 45, message = "{number.length}")
+    @Size(min = 5, max = 45, message = "Khong hop le")
     private String content;
 
-    @Size(min = 5, max = 45, message = "{number.length}")
+    @Size(min = 5, max = 45, message = "Khong hop le")
     private String note;
     @NotBlank
-    private Date dateCreated;
-    @NotBlank
+    private String dateCreated;
+
     private Category category;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -47,14 +45,6 @@ public class BlogDto implements Validator {
     public BlogDto() {
     }
 
-    public BlogDto(int id, String name, String content, String note, Date dateCreated, Category category) {
-        this.id = id;
-        this.name = name;
-        this.content = content;
-        this.note = note;
-        this.dateCreated = dateCreated;
-        this.category = category;
-    }
 
     public void setName(String name) {
         this.name = name;
@@ -76,11 +66,11 @@ public class BlogDto implements Validator {
         this.note = note;
     }
 
-    public Date getDateCreated() {
+    public String getDateCreated() {
         return dateCreated;
     }
 
-    public void setDateCreated(Date dateCreated) {
+    public void setDateCreated(String dateCreated) {
         this.dateCreated = dateCreated;
     }
 

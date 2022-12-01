@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Customer</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/my-style.css">
+</head>
+<body>
+<div th:replace="layout :: header"></div>
+
+
+
+<div class="container d-flex justify-content-md-center mb-5" style="margin-top: 20px">
+    <div class="row">
+        <div class="col-md-12 bg-light info">
+            <form action="/hoKhau/create" method="post" th:object="${soHoKhauDto}">
+                <fieldset>
+                    <legend style="text-align: center">Customer Information</legend>
+                    <table>
+                        <tr>
+                            <td>Name
+                            </td>
+                            <td>
+                                <input type="text" name="maHoKhau" id="maHoKhau"
+                                       class="form-control"
+                                       title="Input cho dung' hi?"
+                                       th:field="*{maHoKhau}">
+                                <div class="text-danger" th:errors="*{maHoKhau}"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>name
+                            </td>
+                            <td>
+                                <input type="text" name="name" id="name" class="form-control"
+                                       th:field="*{name}">
+                                <div class="text-danger" th:errors="*{name}"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Identify Card
+                            </td>
+                            <td>
+                                <input type="number" name="numberPeople" class="form-control"
+                                       th:field="*{numberPeople}">
+                                <div class="text-danger" th:errors="*{numberPeople}"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>dayStar
+                            </td>
+                            <td>
+                                <input type="date" name="phoneNumber" class="form-control"
+                                       th:field="*{dayStar}">
+                                <div class="text-danger" th:errors="*{dayStar}"></div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Address
+                            </td>
+                            <td>
+                                <input type="text" name="address" class="form-control"
+                                       th:field="*{address}">
+                                <div class="text-danger" th:errors="*{address}"></div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td><input type="reset" value="Clear"></td>
+                            <td><input type="submit" value="Create new Customer" class=" btn-success"></td>
+                        </tr>
+                    </table>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div th:replace="layout :: footer"></div>
+
+
+<script src="/js/jquery-3.6.0.min.js"></script>
+
+
+
+<script src="/js/bootstrap.js"></script>
+
+
+<script>
+    $(function (){
+       $("#name").title();
+    });
+</script>
+
+
+</body>
+</html>
