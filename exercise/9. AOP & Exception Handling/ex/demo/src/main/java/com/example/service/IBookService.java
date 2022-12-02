@@ -1,6 +1,7 @@
 package com.example.service;
 
 import com.example.model.Book;
+import com.example.model.OrderacsAndPayacs;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -25,4 +26,10 @@ public interface IBookService extends IGeneralService<Book> {
 
     @Override
     Page<Book> findPageAll(Pageable pageable, String name);
+
+    void oandP(Book book, OrderacsAndPayacs orderacsAndPayacs);
+
+
+    void pay(Book book, OrderacsAndPayacs orderacsAndPayacs,Integer passBook, Integer id);
+
 }

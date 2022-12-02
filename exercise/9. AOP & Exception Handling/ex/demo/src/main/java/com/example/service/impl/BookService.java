@@ -1,7 +1,9 @@
 package com.example.service.impl;
 
 import com.example.model.Book;
+import com.example.model.OrderacsAndPayacs;
 import com.example.repository.IBookRepository;
+import com.example.repository.OrandPayecr;
 import com.example.service.IBookService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,8 @@ import java.util.Optional;
 public class BookService implements IBookService {
     @Autowired
     private IBookRepository repository;
+    @Autowired
+    private OrandPayecr orandPayecr;
 
 
     @Override
@@ -49,5 +53,31 @@ public class BookService implements IBookService {
     @Override
     public Page<Book> findPageAll(Pageable pageable, String name) {
         return repository.findAllByName(pageable, name);
+    }
+
+    @Override
+    public void oandP(Book book, OrderacsAndPayacs orderacsAndPayacs) {
+        if ((orderacsAndPayacs.getPayasc() + orderacsAndPayacs.getOrderasc() == book.getAmount()) && orderacsAndPayacs.getOrderasc() < book.getAmount()) {
+            Integer oder = book.getOrdersssAndPaysss().getOrderasc() + 1;
+            Integer pay = book.getOrdersssAndPaysss().getPayasc() - 1;
+            orderacsAndPayacs.setOrderasc(oder);
+            orderacsAndPayacs.setPayasc(pay);
+            orandPayecr.save(orderacsAndPayacs);
+        } else if (orderacsAndPayacs.getPayasc() + orderacsAndPayacs.getOrderasc() < book.getAmount()) {
+            Integer oder = book.getOrdersssAndPaysss().getOrderasc() + 1;
+            orderacsAndPayacs.setOrderasc(oder);
+            orandPayecr.save(orderacsAndPayacs);
+        }
+    }
+
+    @Override
+    public void pay(Book book, OrderacsAndPayacs orderacsAndPayacs,Integer passBook, Integer id) {
+        if (passBook == orderacsAndPayacs.getPassBook()) {
+            Integer pay = book.getOrdersssAndPaysss().getPayasc() + 1;
+            orderacsAndPayacs.setPayasc(pay);
+            Integer oder = book.getOrdersssAndPaysss().getOrderasc() - 1;
+            orderacsAndPayacs.setOrderasc(oder);
+            orandPayecr.save(orderacsAndPayacs);
+        }
     }
 }

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 @Service
 public class OAndPService implements IOandPservice {
@@ -47,5 +48,16 @@ public class OAndPService implements IOandPservice {
     @Override
     public Page<OrderacsAndPayacs> findPageAll(Pageable pageable, String name) {
         return null;
+    }
+
+    @Override
+    public OrderacsAndPayacs ramdom() {
+        OrderacsAndPayacs orderacsAndPayacs = new OrderacsAndPayacs();
+        Random generator = new Random();
+        Integer pass = generator.nextInt((99999 - 0) + 1) + 0;
+        orderacsAndPayacs.setPassBook(pass);
+        orderacsAndPayacs.setPayasc(0);
+        orderacsAndPayacs.setOrderasc(0);
+        return orderacsAndPayacs;
     }
 }

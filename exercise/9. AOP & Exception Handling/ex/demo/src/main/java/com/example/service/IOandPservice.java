@@ -26,4 +26,5 @@ public interface IOandPservice extends IGeneralService<OrderacsAndPayacs>{
     @Override
     Page<OrderacsAndPayacs> findPageAll(Pageable pageable, String name);
 
+     OrderacsAndPayacs ramdom();
 }
