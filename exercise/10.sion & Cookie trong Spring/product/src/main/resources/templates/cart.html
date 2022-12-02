@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head th:replace="/layout :: head">
+    <meta charset="UTF-8">
+    <title>Shopping Cart</title>
+</head>
+<body>
+<div th:replace="~{/layout::navbar}"></div>
+<p>
+    <a href="/shop">
+        <button type="button" class="btn  btn-info">Shop</button>
+
+    </a>
+</p>
+<h1 style="text-align: center">Your Cart</h1>
+
+<form th:action="@{/shop}" th:object="${cart}" method="post">
+    <h3>Total Items: <span th:text="${cart.countItemQuantity()}"></span></h3>
+    <h3>Total Products: <span th:text="${cart.countProductQuantity()}"></span></h3>
+
+    <table id="customers">
+        <tr>
+            <th>img</th>
+            <th>Item</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Description</th>
+            <th>Delete</th>
+            <th>Order</th>
+            <th>Pay</th>
+
+        </tr>
+        <tr th:each="product: ${cart.products}">
+
+            <td style="width: 18rem;">
+                <img th:src="${product.getKey().linkImg}"
+                     class="card-img-top" alt="...">
+            </td>
+
+            <td th:text="${product.getKey().name}"></td>
+            <td>
+
+                <span th:text="${product.getValue()}"></span>
+
+            </td>
+            <td th:text="${product.getKey().price}"></td>
+            <td th:text="${product.getKey().description}"></td>
+            <td>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                    XÓA
+                </button>
+            </td>
+            <td>
+                <a id="increase_button" th:href="@{/add/__${product.getKey().id}__(action='show')}">
+                    <button type="button" class="btn  btn-info">TĂNG LÊN 1</button>
+                </a>
+            </td>
+
+            <td>
+                <a id="decrease_button" th:href="@{/remove/__${product.getKey().id}__(action='show')}">
+
+                    <button type="button" class="btn  btn-info">GIẢM LÊN 1</button>
+                </a>
+
+            </td>
+
+        </tr>
+        <tr>
+            <td>Total</td>
+            <td></td>
+            <td th:text="${cart.countTotalPayment()}"></td>
+            <td>
+            <td>
+                <button th:attr="onclick=|infoToDetail('${cart.countTotalPayment()}')|"
+                        class="btn btn-warning"
+                        type="button" data-bs-toggle="modal" data-bs-target="#detailModal">
+                    THANH TOAN
+                </button>
+            </td>
+            </td>
+        </tr>
+
+        <!-- Modal THANH TOAN-->
+        <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="exampleModalLabel1"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <form >
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h2 class="modal-title text-danger" id="exampleModalLabel1">TỔNG SỐ TIỀN LÀ</h2>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body ">
+                            <b>Total :</b>
+                            <input type="text" readonly name="id" id="detailId" class="form-control"><br>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary" value="delete">Yes</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </table>
+</form>
+<script>
+    function infoToDetail(Total) {
+        document.getElementById("detailId").value = Total;
+    }
+</script>
+<footer th:replace="/layout :: footer"></footer>
+</body>
+</html>

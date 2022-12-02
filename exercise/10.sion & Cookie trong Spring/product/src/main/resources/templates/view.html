@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout :: head">
+<body>
+<h3>View</h3>
+<p>
+  <a th:href="@{/shop}">
+    Back to  list
+  </a>
+</p>
+<div id="detail">
+  <div class="img" style="width: 18rem;">
+    <label>img:</label>
+    <img th:src="${product.linkImg}"
+         class="card-img-top" alt="...">
+  </div>
+  <div class="name">
+    <label>Name:</label>
+    <label th:text="${product.name}"></label>
+  </div>
+  <div class="description">
+    <label>description:</label>
+    <label th:text="${product.description}"></label>
+  </div>
+  <div class="price">
+    <label>price:</label>
+    <label th:text="${product.price}"></label>
+  </div>
+</div>
+<footer th:replace="/layout :: footer"></footer>
+</body>
+</html>
