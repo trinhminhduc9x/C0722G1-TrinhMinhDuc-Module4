@@ -37,7 +37,7 @@ public class BlogRestController {
 //    }
 
 
-    @GetMapping(" ")
+    @GetMapping("")
     public ResponseEntity<Page<Blog>> goPage(@PageableDefault(10) Pageable pageable,
                                              @RequestParam Optional<String> name) {
 

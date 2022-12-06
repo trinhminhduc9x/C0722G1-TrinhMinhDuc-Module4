@@ -12,13 +12,11 @@ import java.util.Set;
 import com.laptopshop.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 
 import com.laptopshop.dto.SearchSanPhamObject;
@@ -26,8 +24,9 @@ import com.laptopshop.dto.SearchSanPhamObject;
 import com.laptopshop.service.DanhMucService;
 import com.laptopshop.service.SanPhamService;
 
+
 @Controller
-@RequestMapping("/")
+@RequestMapping("/client")
 public class ClientController {
 	@Autowired
 	private SanPhamService sanPhamService;
@@ -35,13 +34,26 @@ public class ClientController {
 	@Autowired
 	private DanhMucService danhMucService;
 
-	@ModelAttribute("listDanhMuc")
-	public List<DanhMuc> listDanhMuc(){
-		return danhMucService.getAllDanhMuc();
+//	@ModelAttribute("listDanhMuc")
+//	public List<DanhMuc> listDanhMuc(){
+//		return danhMucService.getAllDanhMuc();
+//	}
+
+	@GetMapping("/list")
+	public String showList(Model model) {
+		List<DanhMuc> danhMucList = danhMucService.getAllDanhMuc();
+		model.addAttribute("danhMucList",danhMucList);
+		return "/client/list";
 	}
 
 	@GetMapping("/store")
-	public String storePage(@RequestParam(defaultValue = "1") int page,@RequestParam(defaultValue = "") String range,@RequestParam(defaultValue = "") String brand,@RequestParam(defaultValue = "") String manufactor,@RequestParam(defaultValue = "") String os,@RequestParam(defaultValue = "") String ram,@RequestParam(defaultValue = "") String pin,Model model) {		
+	public String storePage(@RequestParam(defaultValue = "1") int page
+			,@RequestParam(defaultValue = "") String range
+			,@RequestParam(defaultValue = "") String brand
+			,@RequestParam(defaultValue = "") String manufactor
+			,@RequestParam(defaultValue = "") String os
+			,@RequestParam(defaultValue = "") String ram
+			,@RequestParam(defaultValue = "") String pin,Model model) {
 		SearchSanPhamObject obj = new SearchSanPhamObject();
 		obj.setBrand(brand);
 		obj.setDonGia(range);

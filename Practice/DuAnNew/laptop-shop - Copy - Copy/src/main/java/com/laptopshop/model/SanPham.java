@@ -17,7 +17,7 @@ public class SanPham {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
+	private Long id;
 
 	private String tenSanPham;
 	private long donGia;
@@ -43,6 +43,39 @@ public class SanPham {
 	@ManyToOne
 	@JoinColumn(name = "ma_hang_sx")
 	private HangSanXuat hangSanXuat;
+
+	public SanPham() {
+	}
+
+	public SanPham(Long id, String tenSanPham, long donGia, int donViKho, int donViBan,
+				   String thongTinBaoHanh, String thongTinChung, String manHinh, String heDieuHanh,
+				   String cpu, String ram, String thietKe, String dungLuongPin,
+				   MultipartFile hinhAnh, DanhMuc danhMuc, HangSanXuat hangSanXuat) {
+		this.id = id;
+		this.tenSanPham = tenSanPham;
+		this.donGia = donGia;
+		this.donViKho = donViKho;
+		this.donViBan = donViBan;
+		this.thongTinBaoHanh = thongTinBaoHanh;
+		this.thongTinChung = thongTinChung;
+		this.manHinh = manHinh;
+		this.heDieuHanh = heDieuHanh;
+		this.cpu = cpu;
+		this.ram = ram;
+		this.thietKe = thietKe;
+		this.dungLuongPin = dungLuongPin;
+		this.hinhAnh = hinhAnh;
+		this.danhMuc = danhMuc;
+		this.hangSanXuat = hangSanXuat;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getTenSanPham() {
 		return tenSanPham;
@@ -104,14 +137,6 @@ public class SanPham {
 		return heDieuHanh;
 	}
 
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
 	public void setHeDieuHanh(String heDieuHanh) {
 		this.heDieuHanh = heDieuHanh;
 	}
@@ -148,6 +173,14 @@ public class SanPham {
 		this.dungLuongPin = dungLuongPin;
 	}
 
+	public MultipartFile getHinhAnh() {
+		return hinhAnh;
+	}
+
+	public void setHinhAnh(MultipartFile hinhAnh) {
+		this.hinhAnh = hinhAnh;
+	}
+
 	public DanhMuc getDanhMuc() {
 		return danhMuc;
 	}
@@ -163,14 +196,4 @@ public class SanPham {
 	public void setHangSanXuat(HangSanXuat hangSanXuat) {
 		this.hangSanXuat = hangSanXuat;
 	}
-	
-
-	public MultipartFile getHinhAnh() {
-		return hinhAnh;
-	}
-
-	public void setHinhAnh(MultipartFile hinhAnh) {
-		this.hinhAnh = hinhAnh;
-	}
-
 }

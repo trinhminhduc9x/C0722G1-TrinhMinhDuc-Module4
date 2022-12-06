@@ -24,8 +24,23 @@ public class DanhMuc {
 	@JsonIgnore
 	@OneToMany(mappedBy = "danhMuc")
 	private List<SanPham> listSanPham;
-	
 
+	public DanhMuc() {
+	}
+
+	public DanhMuc(long id, String tenDanhMuc, List<SanPham> listSanPham) {
+		this.id = id;
+		this.tenDanhMuc = tenDanhMuc;
+		this.listSanPham = listSanPham;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
 
 	public String getTenDanhMuc() {
 		return tenDanhMuc;
@@ -41,13 +56,5 @@ public class DanhMuc {
 
 	public void setListSanPham(List<SanPham> listSanPham) {
 		this.listSanPham = listSanPham;
-	}
-	
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
 	}
 }

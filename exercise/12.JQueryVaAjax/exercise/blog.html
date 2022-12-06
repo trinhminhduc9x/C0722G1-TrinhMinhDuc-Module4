@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Blog</title>
+    <script src="jquery-3.6.1.min.js"></script>
+
+</head>
+<body>
+<h1>Blog List</h1>
+<input type="text" name="search" id="inputSearch">
+<input type="submit" name="search" value="search" id="search">
+<input type="submit" id="load" value="Tải Thêm">
+<table class="table">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Content</th>
+        <th>Note</th>
+    </tr>
+    </thead>
+    <tbody id="tbody">
+    <tr>
+        <td>
+            <span>Loading....</span>
+        </td>
+    </tr>
+    </tbody>
+
+    <script>
+        let curPage = 3;
+
+        function showList(pageNumber) {
+            $(document).ready(function () {
+                setTimeout(function () {
+                    $("tbody").empty()
+                    let search = $("#inputSearch").val();
+                    console.log(search),
+                        $.ajax({
+                            url: "http://localhost:8080/contractdetaildto?" + search + "/viewContractDetail" ,
+                            type: "GET",
+                            dataType: "json",
+                            success: function (blogs) {
+                                console.log(blogs)
+                                let data = blogs.content
+                                let tr = []
+                                console.log(tr)
+                                for (let i = 0; i < curPage; i++) {
+                                    tr.push("<tr>")
+                                    tr.push("<td>" + data[i].id + "</td>")
+                                    tr.push("<td>" + data[i].name + "</td>")
+                                    tr.push("<td>" + data[i].content + "</td>")
+                                    tr.push("<td>" + data[i].note + "</td>")
+                                    tr.push("</tr>")
+                                }
+                                $("table").append(tr.join(""));
+                            }
+                        })
+
+                }, 1000)
+
+
+            })
+        }
+
+        $("#search").click(function () {
+            console.log("ok")
+            showList(curPage);
+        })
+        showList(curPage);
+
+
+        $("#load").click(function () {
+
+            console.log("hello")
+            $.ajax({
+                url: "http://localhost:8080/contractdetaildto?" + search + "/viewContractDetail" ,
+                type: "GET",
+                dataType: "json",
+                success: function (blogs) {
+                    let data = blogs.content
+                    let tr = []
+                    curPage += 3
+                    console.log(curPage)
+                    for (let i = 0; i < curPage; i++) {
+                        tr.push("<tr>")
+                        tr.push("<td>" + data[i].id + "</td>");
+                        tr.push("<td>" + data[i].name + "</td>");
+                        tr.push("<td>" + data[i].content + "</td>");
+                        tr.push("<td>" + data[i].note + "</td>");
+                        tr.push("</tr>")
+                        if (curPage > data.length) {
+                            curPage = data.length
+                        }
+                    }
+                    $("table").append(tr.join(""))
+                }
+            })
+        })
+    </script>
+</table>
+
+</body>
+</html>

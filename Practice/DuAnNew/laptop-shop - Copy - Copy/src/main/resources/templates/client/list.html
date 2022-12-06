@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="iteam,loop : ${danhMucList}">
+        <td th:text="${iteam.id}"></td>
+        <td th:text="${iteam.tenDanhMuc}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
