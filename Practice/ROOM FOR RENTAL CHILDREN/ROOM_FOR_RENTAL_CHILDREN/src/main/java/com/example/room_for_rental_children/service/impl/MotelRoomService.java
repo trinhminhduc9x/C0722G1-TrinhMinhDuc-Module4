@@ -32,4 +32,9 @@ public class MotelRoomService implements IMotelRoomService {
     public void remove(Integer id) {
         motelRoomRepository.deleteById(id);
     }
+
+    @Override
+    public void save(MotelRoom motelRoom) {
+        motelRoomRepository.save(motelRoom);
+    }
 }

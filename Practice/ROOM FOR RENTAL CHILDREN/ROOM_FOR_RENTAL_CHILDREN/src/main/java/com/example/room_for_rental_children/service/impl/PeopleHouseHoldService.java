@@ -21,4 +21,9 @@ public class PeopleHouseHoldService implements IPeopleHouseHoldService {
         return repostory.findById(id).orElse(new PeopleHouseHold());
     }
 
+    @Override
+    public void save(PeopleHouseHold peopleHouseHold) {
+        repostory.save(peopleHouseHold);
+    }
+
 }

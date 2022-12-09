@@ -1,7 +1,10 @@
 package com.example.room_for_rental_children.controller;
 
 import com.example.room_for_rental_children.model.MotelRoom;
+import com.example.room_for_rental_children.model.PeopleHouseHold;
 import com.example.room_for_rental_children.service.IMotelRoomService;
+import com.example.room_for_rental_children.service.IPayService;
+import com.example.room_for_rental_children.service.IPeopleHouseHoldService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -9,10 +12,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
@@ -24,6 +24,11 @@ public class MotelController {
 
     @Autowired
     IMotelRoomService iMotelRoomService;
+    @Autowired
+    IPeopleHouseHoldService iPeopleHouseHoldService;
+
+    @Autowired
+    IPayService iPayService;
 
 //    hiện thị list với phân trang và ko phân trang
 //    @RequestMapping("/list")
@@ -62,11 +67,22 @@ public class MotelController {
     }
 
     //    thêm mới đối tượng vào list
+    @GetMapping("/create")
     public String Create(Model model) {
         model.addAttribute("motelRoom", new MotelRoom());
+        model.addAttribute("payList",iPayService.PAY_MONY_LIST());
         return "MotelRoom/create";
     }
 
+    //    Lưu đối tượng vào list
+    @PostMapping ("/create")
+    public String save (@ModelAttribute("motelRoom") MotelRoom motelRoom,RedirectAttributes redirectAttributes){
+        iPeopleHouseHoldService.save(motelRoom.getPeopleHouseHold());
+        iMotelRoomService.save(motelRoom);
+        redirectAttributes.addFlashAttribute("msg", "thêm mới đã thành công");
+        return "redirect:/motelRoom/list";
+    }
+    //    Xóa đối tượng vào list
     @PostMapping ("/remove")
     public String remove(@RequestParam(name = "id") Integer id, RedirectAttributes redirectAttributes) {
         iMotelRoomService.remove(id);

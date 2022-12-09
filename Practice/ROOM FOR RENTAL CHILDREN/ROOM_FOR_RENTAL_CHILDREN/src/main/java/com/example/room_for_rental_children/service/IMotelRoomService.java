@@ -11,4 +11,5 @@ public interface IMotelRoomService {
     Page<MotelRoom> findPageAll(Pageable pageable);
     Page<MotelRoom> findPageSearchAll(Pageable pageable, String dateStart,String dateEnd);
     void remove(Integer id);
+    void save(MotelRoom motelRoom);
 }
