@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout :: head">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../static/bootstrap-5.0.2-dist/css/bootstrap.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+<div th:replace="layout :: header"></div>
+
+
+<div class="container d-flex justify-content-md-center mb-5"
+     style="text-align: center; font-size: 14px; background-image: linear-gradient(to top right, #EB9FC0, #B83F8F, #2C2867);height: 100vh; overflow:hidden ">
+    <div class="row">
+        <div class="col bg-light info">
+            <form action="/facility/save" method="post" th:object="${facilityDto}">
+                <fieldset>
+                    <legend style="text-align: center"></legend>
+                    <table>
+                        <tr>
+                            <td>Tên Dịch Vụ
+                            </td>
+                            <td>
+                                <input type="text"
+                                       class="form-control"
+                                       th:field="*{name}">
+                                <div class="text-danger" th:errors="*{name}"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Diện Tích Phòng
+                            </td>
+                            <td>
+                                <input type="number"
+                                       class="form-control"
+                                       th:field="*{area}">
+                                <div class="text-danger" th:errors="*{area}"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Giá cả
+                            </td>
+                            <td>
+                                <input type="number"
+                                       class="form-control"
+                                       th:field="*{cost}">
+                                <div class="text-danger" th:errors="*{cost}"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Số người tối đa
+                            </td>
+                            <td>
+                                <input type="number" class="form-control"
+                                       th:field="*{maxPeople}">
+                                <div class="text-danger" th:errors="*{maxPeople}"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Loại phòng thương
+                            </td>
+                            <td>
+                                <input type="text"
+                                       class="form-control"
+                                       th:field="*{standardRoom}">
+                                <div class="text-danger" th:errors="*{standardRoom}"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Tiện lợi khác
+                            </td>
+                            <td>
+                                <input type="text"
+                                       class="form-control"
+                                       th:field="*{descriptionOtherConvenience}">
+                                <div class="text-danger" th:errors="*{descriptionOtherConvenience}"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Diện tích hồ bơi
+                            </td>
+                            <td>
+                                <input type="number"
+                                       class="form-control"
+                                       th:field="*{poolArea}">
+                                <div class="text-danger" th:errors="*{poolArea}"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Số tầng
+                            </td>
+                            <td>
+                                <input type="number"
+                                       class="form-control"
+                                       th:field="*{numberOfFloors}">
+                                <div class="text-danger" th:errors="*{numberOfFloors}"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Dịch vụ miễn phí
+                            </td>
+                            <td>
+                                <input type="text"
+                                       class="form-control"
+                                       th:field="*{facilityFree}">
+                                <div class="text-danger" th:errors="*{facilityFree}"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Kiểu dịch vụ
+                            </td>
+                            <td>
+                                <select th:field="*{facilityType}">
+                                    <option th:each="p : ${facilityTypes}"
+                                            th:value="${p.id}"
+                                            th:text="${p.name}"></option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Kiểu thuê
+                            </td>
+                            <td>
+                                <select th:field="*{rentType}">
+                                    <option th:each="p : ${rentTypeList}"
+                                            th:value="${p.id}"
+                                            th:text="${p.name}"></option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><input type="reset" value="Clear"></td>
+                            <td><input type="submit" value="submit" class=" btn-success"></td>
+                        </tr>
+                    </table>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div th:replace="layout :: footer"></div>
+
+
+<script>
+    $(function () {
+        $("#name").title();
+    });
+</script>
+
+</body>
+</html>

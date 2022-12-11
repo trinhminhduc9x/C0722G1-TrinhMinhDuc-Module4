@@ -22,7 +22,7 @@
             </div>
             <!--thêm mới đối tượng đang có-->
             <div class="col-md-3 ">
-                <a href="/customer/create" class="btn btn-success">Add new object</a>
+                <a href="/facility/create" class="btn btn-success">Add new object</a>
             </div>
 
             <!--tìm kím đối tượng đang có theo 3 trường-->
@@ -30,7 +30,7 @@
             <div class="col-md-6 d-flex justify-content-end">
                 <div>
                     <div class="container-fluid">
-                        <form action="/customer/list" method="get" class="d-flex">
+                        <form action="/facility/list" method="get" class="d-flex">
                             <!--tìm kím đối tượng đang có theo keyName-->
                             <tr>
                                 <input class="form-control me-2 w-25 " type="text" placeholder="Họ và tên"
@@ -69,13 +69,17 @@
                     <thead>
                     <tr class="table-primary">
                         <th scope="col">#</th>
-                        <th scope="col">Tên Khánh Hàng</th>
-                        <th scope="col">Ngày sinh</th>
-                        <th scope="col">Giới Tính</th>
-                        <th scope="col">Số chứng minh nhân dân</th>
-                        <th scope="col">Số điện thoại</th>
-                        <th scope="col">email</th>
-                        <th scope="col">Quê quán</th>
+                        <th scope="col">Tên Dịch Vụ</th>
+                        <th scope="col">Diện Tích Phòng</th>
+                        <th scope="col">Giá cả </th>
+                        <th scope="col">Số người tối đa</th>
+                        <th scope="col">Loại phòng thương</th>
+                        <th scope="col">Tiện lợi khác</th>
+                        <th scope="col">Diện tích hồ bơi</th>
+                        <th scope="col">Số tầng</th>
+                        <th scope="col">Dịch vụ miễn phí</th>
+                        <th scope="col">Kiểu dịch vụ</th>
+                        <th scope="col">Kiểu thuê</th>
                         <th scope="col">Xem dịch vụ</th>
                         <th scope="col">Thêm dịch vụ</th>
 
@@ -94,16 +98,20 @@
                     </thead>
                     <tbody>
                     <!-- code để nhận list đang có-->
-                    <tr class="table-light" th:each="iteam, loop : ${customerPage}">
+                    <tr class="table-light" th:each="iteam, loop : ${facilityPage}">
 
                         <th scope="row" th:text="${loop.count}"></th>
                         <td th:text="${iteam.name}"></td>
-                        <td th:text="${iteam.dateOfBirth}"></td>
-                        <td th:text="${iteam.gender}"></td>
-                        <td th:text="${iteam.idCard}"></td>
-                        <td th:text="${iteam.phoneNumber}"></td>
-                        <td th:text="${iteam.email}"></td>
-                        <td th:text="${iteam.address}"></td>
+                        <td th:text="${iteam.area}"></td>
+                        <td th:text="${iteam.cost}"></td>
+                        <td th:text="${iteam.maxPeople}"></td>
+                        <td th:text="${iteam.standardRoom}"></td>
+                        <td th:text="${iteam.descriptionOtherConvenience}"></td>
+                        <td th:text="${iteam.poolArea}"></td>
+                        <td th:text="${iteam.numberOfFloors}"></td>
+                        <td th:text="${iteam.facilityFree}"></td>
+                        <td th:text="${iteam.facilityType.name}"></td>
+                        <td th:text="${iteam.rentType.name}"></td>
 
 
                         <!-- nút xem tổng số thành viên hiện -->
@@ -136,7 +144,7 @@
                         <!-- nút edit -->
                         <td>
                             <button class="btn">
-                                <a th:href="@{/customer/{id}/edit(id=${iteam.id})}">
+                                <a th:href="@{/facility/{id}/edit(id=${iteam.id})}">
                                     <img src="/img/edit-2.png"
                                          style="height: 25px;width: auto">
                                 </a>
@@ -165,23 +173,23 @@
     <!-- Phan Trang -->
     <div class="d-flex justify-content-end ">
         <ul class="pagination">
-            <li class="page-item disabled" th:if="${customerPage.number == 0}">
+            <li class="page-item disabled" th:if="${facilityPage.number == 0}">
                 <a class="page-link" href="">Previous</a>
             </li>
-            <li class="page-item" th:if="${customerPage.number > 0}">
+            <li class="page-item" th:if="${facilityPage.number > 0}">
                 <a class="page-link"
-                   th:href="@{/customer/list(page=${customerPage.number - 1})}">Previous</a>
+                   th:href="@{/facility/list(page=${facilityPage.number - 1})}">Previous</a>
             </li>
             <li class="page-item disabled">
-                <a class="page-link" href=""><span th:text="${customerPage.number + 1}"></span> / <span
-                        th:text="${customerPage.totalPages}"></span></a>
+                <a class="page-link" href=""><span th:text="${facilityPage.number + 1}"></span> / <span
+                        th:text="${facilityPage.totalPages}"></span></a>
             </li>
-            <li class="page-item disabled" th:if="${customerPage.number >= customerPage.totalPages - 1}">
+            <li class="page-item disabled" th:if="${facilityPage.number >= facilityPage.totalPages - 1}">
                 <a class="page-link" href="">Next</a>
             </li>
-            <li class="page-item" th:if="${customerPage.number < customerPage.totalPages - 1}">
+            <li class="page-item" th:if="${facilityPage.number < facilityPage.totalPages - 1}">
                 <a class="page-link"
-                   th:href="@{/customer/list(page=${customerPage.number + 1})}">Next</a>
+                   th:href="@{/facility/list(page=${facilityPage.number + 1})}">Next</a>
             </li>
         </ul>
     </div>
@@ -190,7 +198,7 @@
     <div class="modal fade" id="deleteButton" tabindex="-1" aria-labelledby="exampleModalLabelDelete"
          aria-hidden="true">
         <div class="modal-dialog">
-            <form action="/customer/delete" method="post">
+            <form action="/facility/delete" method="post">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabelDelete">Deleting</h5>
@@ -239,7 +247,7 @@
     <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel"
          aria-hidden="true">
         <div class="modal-dialog">
-            <form action="/hoKhau/delete" method="get">
+            <form action="/facility/delete" method="get">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h2 class="modal-title text-danger" id="exampleModalLabelAll"></h2>

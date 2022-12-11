@@ -1,48 +1,314 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"  xmlns:th="http://www.thymeleaf.org">
-<head th:replace="/layout :: head">
-  <meta charset="UTF-8">
+<html lang="en">
+<head >
   <title>Title</title>
-  <script src="../static/js/jquery-3.6.0.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <style>
+    body {
+      background: url("https://img.freepik.com/free-vector/soft-colorful-watercolor-texture-decorative-background-vector_1055-12347.jpg?w=2000");
+    }
+
+    /* page content */
+    h2 {
+      color: white;
+      font-family: Trebuchet MS;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    h1 {
+
+      font-size: 300%;
+      margin: 0 auto;
+      width: 100%;
+      height: 100%;
+      display: flex; /* Canh giữa bằng flex */
+      justify-content: center;
+      align-items: center;
+      color: #f1df9d;
+      font-family: "Times New Roman";
+      font-weight: bold;
+      text-align: center;
+      font-style: italic;
+      position: absolute;
+    }
+
+    h2 {
+      font-size: 3rem;
+    }
+
+    #left {
+      width: 221px;
+      height: 394px;
+      border: 1px solid #CDCDCD;
+      float: left;
+      margin-bottom: 5px;
+      position: absolute;
+      right: 5px;
+    }
+
+    #right {
+      width: 221px;
+      height: 394px;
+      min-height: 300px;
+      border: 1px solid #CDCDCD;
+      float: right;
+      margin-bottom: 5px;
+      position: absolute;
+      right: 5px;
+    }
+
+
+  </style>
+
+  <style>
+    #animation {
+      width: 600px;
+      height: 50px;
+      background-color: yellow;
+      position: relative;
+      animation-name: example;
+      animation-duration: 9s;
+      animation-timing-function: linear;
+      animation-delay: 0s;
+      animation-iteration-count: infinite;
+      animation-direction: alternate;
+    }
+
+    #div111 {animation-timing-function: linear;}
+
+    @keyframes example {
+      0%   {background-color: #1bff03; left:0px; top:0px;}
+      25%  {background-color:yellow; left:900px; top:0px;}
+      50%  {background-color: #0000ff; left:900px; top:900px;}
+      75%  {background-color: #4b0080; left:0px; top:900px;}
+      100% {background-color: #00ff8f; left:0px; top:0px;}
+    }
+  </style>
+  <script src="bootstrap-5.0.2-dist/js/bootstrap.js"></script>
 </head>
 <body>
-    <div th:replace="~{/layout::navbar}"></div>
-    <div class="container-fluid" style="text-align: center">
-      <div class="row">
-        <div>
-          <img style="display: block;-webkit-user-select: none;margin: auto;cursor: zoom-in;background-color: hsl(0, 0%, 90%);transition: background-color 300ms;"
-               src="https://genk.mediacdn.vn/2019/7/8/1-15625474669018688730.jpg"
-               width="650" height="810">
-        </div>
-        <div class="col-sm-3" style="background-color:#6e00ff;">
-          <div style="color: gold">
+<div th:replace="~{/layout::header}"></div>
+<div id="animation">
+  <div id="div111">
+    <div class="elementor-widget-container"><h1> WELCOME TO FURAMA</h1>
+    </div>
+  </div>
+</div>
+<div>
+  <video autoplay="" muted="" playsinline="" loop=""
+         src="https://www.danang.intercontinental.com/wp-content/uploads/2021/12/Final_Ambient_Header_v5_Sep8_MED.mp4"
+         style="width: 1365px; height: 650px;">
+  </video>
+
+</div>
+
+<!--Content-->
+<div class="container">
+  <div class="row mt-5">
+    <div class="col-md-4">
+      <p class="fs-4 text-uppercase text-info text-center">THIS WORLD CLASS RESORT, FURAMA DANANG, REPUTABLE FOR
+        BEING A CULINARY RESORT IN VIET NAM
+      </p>
+    </div>
+    <div class="col-md-4">
+      <iframe width="90%" height="90%" src="https://www.youtube.com/embed/IjlT_4mvd-c"
+              title="The Furama Resort DaNang - Couples Corporate" frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen></iframe>
+    </div>
+    <div class="col-md-4">
+      <p class="text-secondary text-info ">Overlooking the long stretch of wide white sand on Danang Beach, Furama
+        Resort Danang is a gateway to
+        three World Heritage Sites of Hoi An (20 minutes), My Son (90 minutes) and Hue (2 hours). The 198 rooms
+        and suites plus 70 two to four bedroom pool villas feature tasteful décor, designed with traditional
+        Vietnamese style and a touch of French colonial architecture and guarantee the Vietnam’s the most
+        prestigious resort -counting royalty, presidents, movie stars and international business leaders among
+        its celebrity guests.</p>
+    </div>
+  </div>
+  <div class="card m-3" style="max-width: 90%">
+    <div class="row g-0">
+      <div class="col-md-6">
+        <img src="https://furamavietnam.com/wp-content/uploads/2018/07/CULIRARY.jpg"
+             class="img-fluid rounded-start" alt="img1">
+      </div>
+      <div class="col-md-6">
+        <div class="p-5">
+          <div class="card-body">
+            <h5 class="card-title text-center text-info">RECREATION</h5>
+            <p class="card-text">
+              A full range of Water Sports will keep you busy. Stop by the Water Sport House where our
+              experienced staff are waiting to assist or train you in the use of any of our equipment.</p>
+            <a href="#" class="btn bg-success text-white">Read more</a>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card m-3" style="max-width: 90%">
+    <div class="row g-0">
+      <div class="col-md-6">
+        <div class="card-body">
+          <div class="p-5">
+            <h5 class="card-title text-center text-info">CULINARY</h5>
+            <p class="card-text">The resort’s culinary experience features a mixture of the authentic and
+              locally inspired Vietnamese, Asian, Italian and other European cuisines plus the best
+              imported
+              steaks. The resort presents guests with varied gastronomic venues – the hip and breezy bar
+              overlooking the beach, the exclusive Lagoon pool surrounded by a tropical garden, the true
+              Italian flare offered at the Don Cipriani’s, the refined Asian touch at Café Indochine or
+              the
+              authentic central Vietnam cuisine at the Danaksara.</p>
+            <a href="#" class="btn bg-success text-white">Read more</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <img src="https://furamavietnam.com/wp-content/uploads/2018/07/RECREATION.jpg"
+             class="img-fluid rounded-start" alt="img1">
+      </div>
+    </div>
+  </div>
+  <div class="card m-3" style="max-width: 90%">
+    <div class="row g-0">
+      <div class="col-md-6">
+        <img src="https://furamavietnam.com/wp-content/uploads/2018/10/02.-ICP-ICP_Furama_Danang_-Ball-Room-4.jpg"
+             class="img-fluid rounded-start" alt="img1">
+      </div>
+      <div class="col-md-6">
+        <div class="card-body">
           <div>
-            <img style="display: block;-webkit-user-select: none;margin: auto;cursor: zoom-in;background-color: hsl(0, 0%, 90%);transition: background-color 300ms;"
-                 src="https://khoinguonsangtao.vn/wp-content/uploads/2022/08/hinh-nen-gai-xinh.jpg"
-                 width="519" height="649">
-          </div>
-        </div>
-        <div class="col-sm-6" style="background-color:#ffca07;">
-          <div style="color: #002ef3">
-          </div>
-          <div>
-            <img style="display: block;-webkit-user-select: none;margin: auto;cursor: zoom-in;background-color: hsl(39,100%,50%);
-                transition: background-color 300ms;"
-                 src="https://i.pinimg.com/564x/64/19/cb/6419cbe9f2c4d4d69a1400f54832fe21.jpg"
-                 width="365" height="649">
-          </div>
-        </div>
-        <div class="col-sm-3" style="background-color:#1900ff;">
-          <div style="color: gold">
+            <h5 class="card-title text-center text-info">MEETING & EVENT</h5>
+            <p class="card-text">
+              A well-appointed International Convention Palace with ballrooms can accommodate up to 1,000
+              people in style, with another ten function rooms for 50 to 300 people each. A variety of
+              cultural-themed parties on the beach or around the lagoon, in the ballrooms or outside the
+              resort, with the surprising arrivals of VIPs from Helicopter landing on the resort’s own
+              Helipad…</p>
+            <a href="#" class="btn bg-success text-white">Read more</a>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+<!-- Footer -->
+<footer class="text-center text-lg-start bg-light text-muted">
+  <!-- Section: Social media -->
+  <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
+    <!-- Left -->
+
+    <!-- Left -->
+
+    <!-- Right -->
+    <div>
+      <a href="" class="me-4 text-reset">
+        <i class="fab fa-facebook-f"></i>
+      </a>
+      <a href="" class="me-4 text-reset">
+        <i class="fab fa-twitter"></i>
+      </a>
+      <a href="" class="me-4 text-reset">
+        <i class="fab fa-google"></i>
+      </a>
+      <a href="" class="me-4 text-reset">
+        <i class="fab fa-instagram"></i>
+      </a>
+      <a href="" class="me-4 text-reset">
+        <i class="fab fa-linkedin"></i>
+      </a>
+      <a href="" class="me-4 text-reset">
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <!-- Right -->
+  </section>
+  <!-- Section: Social media -->
+
+  <!-- Section: Links  -->
+  <section class="">
+    <div class="container text-center text-md-start mt-5">
+      <!-- Grid row -->
+      <div class="row mt-3">
+        <!-- Grid column -->
+        <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+          <!-- Content -->
+          <h6 class="text-uppercase fw-bold mb-4">
+            <i class="fas fa-gem me-3"></i>Company name
+          </h6>
+          <p>
+            Here you can use rows and columns to organize your footer content. Lorem ipsum
+            dolor sit amet, consectetur adipisicing elit.
+          </p>
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+          <!-- Links -->
+          <h6 class="text-uppercase fw-bold mb-4">
+            Products
+          </h6>
+          <p>
+            <a href="#!" class="text-reset">Angular</a>
+          </p>
+          <p>
+            <a href="#!" class="text-reset">React</a>
+          </p>
+          <p>
+            <a href="#!" class="text-reset">Vue</a>
+          </p>
+          <p>
+            <a href="#!" class="text-reset">Laravel</a>
+          </p>
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+          <!-- Links -->
+          <h6 class="text-uppercase fw-bold mb-4">
+            Useful links
+          </h6>
+          <p>
+            <a href="#!" class="text-reset">Pricing</a>
+          </p>
+          <p>
+            <a href="#!" class="text-reset">Settings</a>
+          </p>
+          <p>
+            <a href="#!" class="text-reset">Orders</a>
+          </p>
+          <p>
+            <a href="#!" class="text-reset">Help</a>
+          </p>
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+          <!-- Links -->
+          <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
+          <p><i class="fas fa-home me-3"></i> New York, NY 10012, US</p>
+          <p>
+            <i class="fas fa-envelope me-3"></i>
+            info@example.com
+          </p>
+          <p><i class="fas fa-phone me-3"></i> + 01 234 567 88</p>
+          <p><i class="fas fa-print me-3"></i> + 01 234 567 89</p>
+        </div>
+        <!-- Grid column -->
+      </div>
+      <!-- Grid row -->
+    </div>
+  </section>
+  <!-- Section: Links  -->
+
+
+</footer>
+<!-- Footer -->
+<script src="bootstrap-5.0.2-dist/js/bootstrap.min.js"></script>
 </body>
 </html>
-
-
-
