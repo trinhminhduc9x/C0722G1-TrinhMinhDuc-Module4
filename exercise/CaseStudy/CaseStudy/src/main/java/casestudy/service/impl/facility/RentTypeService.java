@@ -12,7 +12,7 @@ public class RentTypeService implements IRentTypeService {
     @Autowired
     RentTypeRepository rentTypeRepository;
     @Override
-    public List<RentType> findListAll() {
+    public List<RentType> fildListAll() {
         return rentTypeRepository.findAll();
     }
 }

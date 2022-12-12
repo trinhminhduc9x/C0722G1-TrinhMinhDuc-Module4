@@ -14,6 +14,7 @@ import java.util.List;
 public class FacilityService implements IFacilityService {
     @Autowired
     FacilityRepository facilityRepository;
+
     @Override
     public List<Facility> findListAll() {
         return facilityRepository.findAll();
@@ -21,11 +22,21 @@ public class FacilityService implements IFacilityService {
 
     @Override
     public Page<Facility> fildPageAll(Pageable pageable, String name, String facilityTypeID) {
-        return facilityRepository.findPageSearchAll(pageable,name,facilityTypeID);
+        return facilityRepository.findPageSearchAll(pageable, name, facilityTypeID);
     }
 
     @Override
     public void save(Facility facility) {
         facilityRepository.save(facility);
+    }
+
+    @Override
+    public Facility findById(Integer id) {
+        return facilityRepository.findById(id).orElse(new Facility());
+    }
+
+    @Override
+    public void remove(Integer id) {
+        facilityRepository.deleteById(id);
     }
 }

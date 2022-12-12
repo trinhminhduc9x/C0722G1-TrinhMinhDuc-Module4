@@ -13,7 +13,7 @@ public class FacilityTypeService implements IFacilityTypeService {
     @Autowired
     FacilityTypeRepository facilityTypeRepository;
     @Override
-    public List<FacilityType> findListAll() {
+    public List<FacilityType> fildListAll() {
         return facilityTypeRepository.findAll();
     }
 }

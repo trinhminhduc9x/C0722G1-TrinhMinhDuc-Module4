@@ -17,7 +17,7 @@
         <div class="row">
             <!--sắp xếp đối tượng bằng tên-->
             <div class="col-md-3 ">
-                <a th:href="@{/customer/list(sort='name', name=${name})}" class="btn btn-success" type="submit">Sort By
+                <a th:href="@{/facility/list(sort='name', name=${name})}" class="btn btn-success" type="submit">Sort By
                     Name</a>
             </div>
             <!--thêm mới đối tượng đang có-->
@@ -37,16 +37,12 @@
                                        name="name" aria-label="Search" th:value="${name}">
                             </tr>
 
-                            <!--tìm kím đối tượng đang có theo mã số -->
+
+                            <!--tìm kím đối tượng đang có theo facilityTypeList-->
                             <tr>
-                                <input class="form-control me-2 w-25 " type="text" placeholder="Ngày sinh"
-                                       name="dataOfBirth" aria-label="Search" th:value="${dataOfBirth}">
-                            </tr>
-                            <!--tìm kím đối tượng đang có theo number-->
-                            <tr>
-                                <select name="CustomerTypeID">
-                                    <option value="">Loại Khách Hàng</option>
-                                    <option name="" th:each="p : ${CustomerTypeList}"
+                                <select name="facilityTypeID">
+                                    <option value="">Loại Dịch Vụ</option>
+                                    <option name="" th:each="p : ${facilityTypeList}"
                                             th:value="${p.id}"
                                             th:text="${p.name}"></option>
                                 </select>

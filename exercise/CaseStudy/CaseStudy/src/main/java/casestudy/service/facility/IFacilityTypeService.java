@@ -6,5 +6,5 @@ import casestudy.model.facility.FacilityType;
 import java.util.List;
 
 public interface IFacilityTypeService {
-    List<FacilityType> findListAll();
+    List<FacilityType> fildListAll();
 }

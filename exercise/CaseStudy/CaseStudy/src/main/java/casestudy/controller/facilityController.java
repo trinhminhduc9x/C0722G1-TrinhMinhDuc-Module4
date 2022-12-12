@@ -52,18 +52,16 @@ public class facilityController {
         model.addAttribute("facilityPage", facilityPage);
         model.addAttribute("name", name);
         model.addAttribute("facilityTypeID", facilityTypeID);
-        model.addAttribute("facilityTypeList", iFacilityTypeService.findListAll());
-        model.addAttribute("iRentTypeList", iRentTypeService.findListAll());
+        model.addAttribute("facilityTypeList", iFacilityTypeService.fildListAll());
+        model.addAttribute("iRentTypeList", iRentTypeService.fildListAll());
         return "facility/list";
     }
 
     @GetMapping("/create")
     public String create(Model model) {
 
-        List<FacilityType> facilityTypes = iFacilityTypeService.findListAll();
-        List<RentType> rentTypeList = iRentTypeService.findListAll();
-        model.addAttribute("facilityTypes", facilityTypes);
-        model.addAttribute("rentTypeList", rentTypeList);
+        model.addAttribute("facilityTypes", iFacilityTypeService.fildListAll());
+        model.addAttribute("rentTypeList", iRentTypeService.fildListAll());
         model.addAttribute("facilityDto", new FacilityDto());
 
         return "/facility/create";
@@ -73,9 +71,12 @@ public class facilityController {
     public String save(@Validated
                        @ModelAttribute("facilityDto") FacilityDto facilityDto
             , BindingResult bindingResult
-            , RedirectAttributes redirectAttributes) {
+            , RedirectAttributes redirectAttributes
+            , Model model) {
         new FacilityDto().validate(facilityDto, bindingResult);
         if (bindingResult.hasFieldErrors()) {
+            model.addAttribute("facilityTypes", iFacilityTypeService.fildListAll());
+            model.addAttribute("rentTypeList", iRentTypeService.fildListAll());
             return "/facility/create";
         } else {
             Facility facility = new Facility();
@@ -86,4 +87,38 @@ public class facilityController {
         }
     }
 
+    @GetMapping("/{id}/edit")
+    public String edit(@PathVariable int id, Model model) {
+        model.addAttribute("facilityDto", iFacilityService.findById(id));
+        model.addAttribute("facilityTypes", iFacilityTypeService.fildListAll());
+        model.addAttribute("rentTypeList", iRentTypeService.fildListAll());
+        return "/facility/update";
+    }
+
+    @PostMapping("/update")
+    public String update(@Validated
+                         @ModelAttribute("facilityDto") FacilityDto facilityDto
+            , BindingResult bindingResult
+            , RedirectAttributes redirectAttributes
+            , Model model) {
+        new CustomerDto().validate(facilityDto, bindingResult);
+        if (bindingResult.hasFieldErrors()) {
+            model.addAttribute("facilityTypes", iFacilityTypeService.fildListAll());
+            model.addAttribute("rentTypeList", iRentTypeService.fildListAll());
+            return "/facility/update";
+        } else {
+            Facility facility = new Facility();
+            BeanUtils.copyProperties(facilityDto, facility);
+            iFacilityService.save(facility);
+            redirectAttributes.addFlashAttribute("msg", " Create form " + facility.getName() + " ok ");
+            return "redirect:/facility/list";
+        }
+    }
+
+    @PostMapping("/delete")
+    public String delete(@RequestParam(name = "id") Integer id, RedirectAttributes redirectAttributes) {
+        redirectAttributes.addFlashAttribute("msg", " Delete form " + iFacilityService.findById(id).getName() + " ok ");
+        iFacilityService.remove(id);
+        return "redirect:/facility/list";
+    }
 }

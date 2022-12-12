@@ -14,4 +14,9 @@ public interface IFacilityService  {
     Page<Facility> fildPageAll(Pageable pageable, String name, String facilityTypeID);
 
     void save(Facility facility);
+
+
+    Facility findById(Integer id);
+
+    void remove(Integer id);
 }
