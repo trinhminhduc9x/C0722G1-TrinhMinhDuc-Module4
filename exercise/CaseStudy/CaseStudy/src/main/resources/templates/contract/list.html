@@ -12,54 +12,6 @@
 
 <div style="text-align: center; font-size: 14px; background-image: linear-gradient(to top right, #EB9FC0, #B83F8F, #2C2867);height: 100vh; overflow:hidden ">
 
-    <!--bắt đầu code tìm kím và thêm mới -->
-    <div class="container">
-        <div class="row">
-            <!--sắp xếp đối tượng bằng tên-->
-            <div class="col-md-3 ">
-                <a th:href="@{/customer/list(sort='name', name=${name})}" class="btn btn-success" type="submit">Sort By
-                    Name</a>
-            </div>
-            <!--thêm mới đối tượng đang có-->
-            <div class="col-md-3 ">
-                <a href="/customer/create" class="btn btn-success">Add new object</a>
-            </div>
-
-            <!--tìm kím đối tượng đang có theo 3 trường-->
-
-            <div class="col-md-6 d-flex justify-content-end">
-                <div>
-                    <div class="container-fluid">
-                        <form action="/customer/list" method="get" class="d-flex">
-                            <!--tìm kím đối tượng đang có theo keyName-->
-                            <tr>
-                                <input class="form-control me-2 w-25 " type="text" placeholder="Họ và tên"
-                                       name="name" aria-label="Search" th:value="${name}">
-                            </tr>
-
-                            <!--tìm kím đối tượng đang có theo mã số -->
-                            <tr>
-                                <input class="form-control me-2 w-25 " type="text" placeholder="Ngày sinh"
-                                       name="dataOfBirth" aria-label="Search" th:value="${dataOfBirth}">
-                            </tr>
-                            <!--tìm kím đối tượng đang có theo number-->
-                            <tr>
-                                <select name="CustomerTypeID">
-                                    <option th:value="${CustomerTypeID}">Loại Khách Hàng</option>
-                                    <option name="" th:each="p : ${customerTypes}"
-                                            th:value="${p.id}"
-                                            th:text="${p.name}"></option>
-                                </select>
-                            </tr>
-                            <button class="btn btn-outline-success btn-light" type="submit"><strong>Search</strong>
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
 
     <!--hiện thị danh sách đối tượng-->
     <div class="container-fluid">
@@ -69,91 +21,46 @@
                     <thead>
                     <tr class="table-primary">
                         <th scope="col">#</th>
-                        <th scope="col">Tên Khánh Hàng</th>
-                        <th scope="col">Ngày sinh</th>
-                        <th scope="col">Giới Tính</th>
-                        <th scope="col">Số chứng minh nhân dân</th>
-                        <th scope="col">Số điện thoại</th>
-                        <th scope="col">email</th>
-                        <th scope="col">Quê quán</th>
-                        <th scope="col">Xem dịch vụ</th>
-                        <th scope="col">Thêm dịch vụ</th>
-
-
-                        <!-- nút delete tổng các đối tượng được đánh dấu -->
-                        <th scope="col">
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#deleteModal"
-                                    th:attr="onclick=|stringArr()|"> Delete
-                            </button>
-                        </th>
-
-                        <th scope="col" style="text-align: center">Edit</th>
-                        <th scope="col" style="text-align: center">Delete</th>
+                        <th scope="col">Ngày bắt đầu hợp đồng</th>
+                        <th scope="col">Ngày kết thúc hợp đồng</th>
+                        <th scope="col">Tiền Đặt Cọc</th>
+                        <th scope="col">Tên Khách Hàng</th>
+                        <th scope="col">Tên Nhân Viên</th>
+                        <th scope="col">Tên Dịch Vụ</th>
+                        <th scope="col">Thêm dịch vụ đi kèm</th>
+                        <th scope="col">Xem dịch vụ đi kèm</th>
                     </tr>
                     </thead>
                     <tbody>
                     <!-- code để nhận list đang có-->
-                    <tr class="table-light" th:each="iteam, loop : ${customerPage}">
+                    <tr class="table-light" th:each="iteam, loop : ${contractPage}">
 
                         <th scope="row" th:text="${loop.count}"></th>
-                        <td th:text="${iteam.name}"></td>
-                        <td th:text="${iteam.dateOfBirth}"></td>
-                        <td th:text="${iteam.gender}"></td>
-                        <td th:text="${iteam.idCard}"></td>
-                        <td th:text="${iteam.phoneNumber}"></td>
-                        <td th:text="${iteam.email}"></td>
-                        <td th:text="${iteam.address}"></td>
+                        <td th:text="${iteam.startDate}"></td>
+                        <td th:text="${iteam.endDate}"></td>
+                        <td th:text="${iteam.deposit}"></td>
+                        <td th:text="${iteam.customer.name}"></td>
+                        <td th:text="${iteam.employee.name}"></td>
+                        <td th:text="${iteam.facility.name}"></td>
 
 
-                        <!-- nút xem tổng số thành viên hiện -->
-                        <td>
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#view"
-                                    th:attr="onclick=|infoToModal('${iteam.id}')|">
-                                xem
-                            </button>
-                        </td>
-                        <!-- Button thêm mới con trẻ modal -->
+                        <!-- Button thêm mới dịch vụ đi kèm -->
                         <td>
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                     data-bs-target="#exampleModal"
                                     th:attr="onclick=|clickSave('${iteam.id}')|">
-                                thêm
+                                +
                             </button>
                         </td>
-
-                        <!-- &lt;!&ndash;nút đánh dấu các thành viên cần được xóa&ndash;&gt;-->
+                        <!-- nút xem dịch vụ đi kèm -->
                         <td>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"
-                                       th:attr="onclick=|getIdToDelete('${iteam.id}')|">
-                                <label class="form-check-label" for="flexCheckDefault">
-                                    DELETE
-                                </label>
-                            </div>
-                        </td>
-
-                        <!-- nút edit -->
-                        <td>
-                            <button class="btn">
-                                <a th:href="@{/customer/{id}/edit(id=${iteam.id})}">
-                                    <img src="/img/edit-2.png"
-                                         style="height: 25px;width: auto">
-                                </a>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#view"
+                                    th:attr="onclick=|infoToModal('${iteam.id}')|">
+                                xem dịch vụ đi kèm
                             </button>
                         </td>
 
-                        <!--nút xóa một đối tượng kích vào-->
-                        <td class="btn-delete">
-                            <button type="button"
-                                    class="btn"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#deleteButton"
-                                    th:attr="onclick=|showModalDelete('${iteam.id}','${iteam.name}')|">
-                                <img src="/img/delete.png"
-                                     style="height: 25px;width: auto">
-                            </button>
-                        </td>
+
 
                     </tr>
                     </tbody>
@@ -165,23 +72,23 @@
     <!-- Phan Trang -->
     <div class="d-flex justify-content-end ">
         <ul class="pagination">
-            <li class="page-item disabled" th:if="${customerPage.number == 0}">
+            <li class="page-item disabled" th:if="${contractPage.number == 0}">
                 <a class="page-link" href="">Previous</a>
             </li>
-            <li class="page-item" th:if="${customerPage.number > 0}">
+            <li class="page-item" th:if="${contractPage.number > 0}">
                 <a class="page-link"
-                   th:href="@{/customer/list(page=${customerPage.number - 1},name=${name},dataOfBirth=${dataOfBirth},CustomerTypeID=${CustomerTypeID})}">Previous</a>
+                   th:href="@{/contract/list(page=${contractPage.number - 1})}">Previous</a>
             </li>
             <li class="page-item disabled">
-                <a class="page-link" href=""><span th:text="${customerPage.number + 1}"></span> / <span
-                        th:text="${customerPage.totalPages}"></span></a>
+                <a class="page-link" href=""><span th:text="${contractPage.number + 1}"></span> / <span
+                        th:text="${contractPage.totalPages}"></span></a>
             </li>
-            <li class="page-item disabled" th:if="${customerPage.number >= customerPage.totalPages - 1}">
+            <li class="page-item disabled" th:if="${contractPage.number >= contractPage.totalPages - 1}">
                 <a class="page-link" href="">Next</a>
             </li>
-            <li class="page-item" th:if="${customerPage.number < customerPage.totalPages - 1}">
+            <li class="page-item" th:if="${contractPage.number < contractPage.totalPages - 1}">
                 <a class="page-link"
-                   th:href="@{/customer/list(page=${customerPage.number + 1},name=${name},dataOfBirth=${dataOfBirth},CustomerTypeID=${CustomerTypeID})}">Next</a>
+                   th:href="@{/contract/list(page=${contractPage.number + 1})}">Next</a>
             </li>
         </ul>
     </div>
@@ -190,7 +97,7 @@
     <div class="modal fade" id="deleteButton" tabindex="-1" aria-labelledby="exampleModalLabelDelete"
          aria-hidden="true">
         <div class="modal-dialog">
-            <form action="/customer/delete" method="post">
+            <form action="/contract/delete" method="post">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabelDelete">Deleting</h5>
@@ -239,7 +146,7 @@
     <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel"
          aria-hidden="true">
         <div class="modal-dialog">
-            <form action="/hoKhau/delete" method="get">
+            <form action="/contract/delete" method="get">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h2 class="modal-title text-danger" id="exampleModalLabelAll"></h2>
@@ -274,8 +181,7 @@
                     <table class="table">
                         <thead>
                         <tr>
-                            <th scope="col">Tên chủ hộ</th>
-                            <th scope="col">Tên Hôn Thê</th>
+                            <th scope="col">Dịch vụ đi kèm</th>
                         </tr>
                         </thead>
                         <tbody id="myBodyPeople">
@@ -285,7 +191,7 @@
                                 <thead>
                                 <tr>
                                     <th scope="col">STT</th>
-                                    <th scope="col">Tên các con</th>
+                                    <th scope="col">Dịch vụ đi kèm</th>
                                 </tr>
                                 </thead>
                                 <tbody id="myBodyChild">
@@ -300,7 +206,7 @@
         </div>
     </div>
 
-    <!-- Modal thêm con -->
+    <!-- Modal thêm dịch vụ di kèm -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
          aria-hidden="true">
         <div class="modal-dialog" role="document">

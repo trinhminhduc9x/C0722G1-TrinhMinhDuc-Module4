@@ -2,13 +2,9 @@ package casestudy.controller;
 
 import casestudy.dto.CustomerDto;
 import casestudy.dto.FacilityDto;
-import casestudy.model.customer.Customer;
-import casestudy.model.customer.CustomerType;
 import casestudy.model.facility.Facility;
 import casestudy.model.facility.FacilityType;
 import casestudy.model.facility.RentType;
-import casestudy.service.customer.ICustomerService;
-import casestudy.service.customer.ICustomerTypeService;
 import casestudy.service.facility.IFacilityService;
 import casestudy.service.facility.IFacilityTypeService;
 import casestudy.service.facility.IRentTypeService;
@@ -39,6 +35,16 @@ public class facilityController {
     @Autowired
     private IRentTypeService iRentTypeService;
 
+    @ModelAttribute("facilityTypeList")
+    public List<FacilityType> getListFacilityType() {
+        return iFacilityTypeService.fildListAll();
+    }
+    @ModelAttribute("iRentTypeList")
+    public List<RentType> getListRentTypeType() {
+        return iRentTypeService.fildListAll();
+    }
+
+
 
     @GetMapping("/list")
     public String showPage(Model model,
@@ -52,18 +58,12 @@ public class facilityController {
         model.addAttribute("facilityPage", facilityPage);
         model.addAttribute("name", name);
         model.addAttribute("facilityTypeID", facilityTypeID);
-        model.addAttribute("facilityTypeList", iFacilityTypeService.fildListAll());
-        model.addAttribute("iRentTypeList", iRentTypeService.fildListAll());
         return "facility/list";
     }
 
     @GetMapping("/create")
     public String create(Model model) {
-
-        model.addAttribute("facilityTypes", iFacilityTypeService.fildListAll());
-        model.addAttribute("rentTypeList", iRentTypeService.fildListAll());
         model.addAttribute("facilityDto", new FacilityDto());
-
         return "/facility/create";
     }
 
@@ -75,8 +75,6 @@ public class facilityController {
             , Model model) {
         new FacilityDto().validate(facilityDto, bindingResult);
         if (bindingResult.hasFieldErrors()) {
-            model.addAttribute("facilityTypes", iFacilityTypeService.fildListAll());
-            model.addAttribute("rentTypeList", iRentTypeService.fildListAll());
             return "/facility/create";
         } else {
             Facility facility = new Facility();
@@ -89,9 +87,6 @@ public class facilityController {
 
     @GetMapping("/{id}/edit")
     public String edit(@PathVariable int id, Model model) {
-        model.addAttribute("facilityDto", iFacilityService.findById(id));
-        model.addAttribute("facilityTypes", iFacilityTypeService.fildListAll());
-        model.addAttribute("rentTypeList", iRentTypeService.fildListAll());
         return "/facility/update";
     }
 
@@ -103,8 +98,6 @@ public class facilityController {
             , Model model) {
         new CustomerDto().validate(facilityDto, bindingResult);
         if (bindingResult.hasFieldErrors()) {
-            model.addAttribute("facilityTypes", iFacilityTypeService.fildListAll());
-            model.addAttribute("rentTypeList", iRentTypeService.fildListAll());
             return "/facility/update";
         } else {
             Facility facility = new Facility();

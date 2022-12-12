@@ -111,7 +111,7 @@
                             </td>
                             <td>
                                 <select th:field="*{facilityType}">
-                                    <option th:each="p : ${facilityTypes}"
+                                    <option th:each="p : ${facilityTypeList}"
                                             th:value="${p.id}"
                                             th:text="${p.name}"></option>
                                 </select>
@@ -123,7 +123,7 @@
                             </td>
                             <td>
                                 <select th:field="*{rentType}">
-                                    <option th:each="p : ${rentTypeList}"
+                                    <option th:each="p : ${iRentTypeList}"
                                             th:value="${p.id}"
                                             th:text="${p.name}"></option>
                                 </select>
