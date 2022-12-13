@@ -13,13 +13,23 @@
 <div style="text-align: center; font-size: 14px; background-image: linear-gradient(to top right, #EB9FC0, #B83F8F, #2C2867);height: 100vh; overflow:hidden ">
 
 
-    <!--hiện thị danh sách đối tượng-->
-    <div class="container-fluid">
+    <div class="container">
         <div class="row">
-            <div style="text-align: center; font-size: 14px">
-                <table class="table table-info table-striped" style="width: 100%">
+            <!--thêm mới đối tượng đang có-->
+            <div class="col-md-3 ">
+                <a href="/contract/create" class="btn btn-success">Add new object</a>
+            </div>
+
+        </div>
+    </div>
+
+    <!--hiện thị danh sách đối tượng-->
+<!--    <div class="container-fluid" style="background-color: #E2F0EB4D">-->
+<!--        <div class="row">-->
+<!--            <div style="text-align: center; font-size: 14px">-->
+                <table class="table table-hover" style="background-color: #E2F0EB4D">
                     <thead>
-                    <tr class="table-primary">
+                    <tr class="table" style="background-color: #E2F0EB4D" >
                         <th scope="col">#</th>
                         <th scope="col">Ngày bắt đầu hợp đồng</th>
                         <th scope="col">Ngày kết thúc hợp đồng</th>
@@ -33,7 +43,7 @@
                     </thead>
                     <tbody>
                     <!-- code để nhận list đang có-->
-                    <tr class="table-light" th:each="iteam, loop : ${contractPage}">
+                    <tr class="table-table-hover" th:each="iteam, loop : ${contractPage}" style="background-color: #E2F0EB4D">
 
                         <th scope="row" th:text="${loop.count}"></th>
                         <td th:text="${iteam.startDate}"></td>
@@ -46,16 +56,16 @@
 
                         <!-- Button thêm mới dịch vụ đi kèm -->
                         <td>
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
                                     data-bs-target="#exampleModal"
-                                    th:attr="onclick=|contractDetail('${iteam.id}')|">
+                                    th:attr="onclick=|contractDetail('${iteam.id_contract}')|">
                                 +
                             </button>
                         </td>
                         <!-- nút xem dịch vụ đi kèm -->
                         <td>
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#view"
-                                    th:attr="onclick=|infoToModal('${iteam.id}')|">
+                            <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#view"
+                                    th:attr="onclick=|infoToModal('${iteam.id_contract}')|">
                                 xem dịch vụ đi kèm
                             </button>
                         </td>
@@ -63,8 +73,8 @@
                     </tbody>
                 </table>
             </div>
-        </div>
-    </div>
+<!--        </div>-->
+<!--    </div>-->
 
     <!-- Phan Trang -->
     <div class="d-flex justify-content-end ">
@@ -373,7 +383,7 @@
                     myTableAttachFacility +=
                         `
                             <tr>
-                           <td  class="text-danger">${data[i].id}</td>
+                           <td  class="text-danger">${data[i].id_attach_facility}</td>
                               <td  class="text-danger">${data[i].name}</td>
                               <td  class="text-danger">${data[i].cost}</td>
                               <td  class="text-danger">${data[i].status}</td>

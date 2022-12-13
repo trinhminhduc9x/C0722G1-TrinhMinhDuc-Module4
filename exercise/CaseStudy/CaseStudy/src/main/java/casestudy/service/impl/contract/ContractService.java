@@ -9,6 +9,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ContractService implements IContractService {
     @Autowired
@@ -21,5 +23,15 @@ public class ContractService implements IContractService {
     @Override
     public Contract findById(Integer id) {
         return contractRepository.findById(id).orElse(new Contract());
+    }
+
+    @Override
+    public List<Contract> findListAll() {
+        return contractRepository.findAll();
+    }
+
+    @Override
+    public void save(Contract contract) {
+        contractRepository.save(contract);
     }
 }

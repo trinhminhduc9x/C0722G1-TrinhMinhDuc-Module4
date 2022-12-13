@@ -19,7 +19,7 @@ import java.util.Set;
 public class Facility {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer id_facility;
 
 
     private String name;
@@ -34,10 +34,12 @@ public class Facility {
 
     @ManyToOne
     @JoinColumn(name = "facility_type", referencedColumnName = "id")
+    @JsonBackReference
     private FacilityType facilityType;
 
     @ManyToOne
     @JoinColumn(name = "rent_type", referencedColumnName = "id")
+    @JsonBackReference
     private RentType rentType;
 
     @OneToMany(mappedBy = "facility",cascade = CascadeType.REMOVE)

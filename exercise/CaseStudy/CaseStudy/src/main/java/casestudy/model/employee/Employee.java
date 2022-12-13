@@ -19,8 +19,7 @@ import java.util.Set;
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-
+    private Integer id_employee;
     private String name;
     @Column(columnDefinition = "DATE")
     private String dateOfBirth;
@@ -32,12 +31,15 @@ public class Employee {
 
     @ManyToOne
     @JoinColumn(name = "position_id",referencedColumnName = "id")
+    @JsonBackReference
     private Position position;
     @ManyToOne
     @JoinColumn(name = "division_id",referencedColumnName = "id")
+    @JsonBackReference
     private Division division;
     @ManyToOne
     @JoinColumn(name = "education_degree_id",referencedColumnName = "id")
+    @JsonBackReference
     private EducationDegree educationDegree;
 
     @OneToMany(mappedBy = "employee",cascade = CascadeType.REMOVE)

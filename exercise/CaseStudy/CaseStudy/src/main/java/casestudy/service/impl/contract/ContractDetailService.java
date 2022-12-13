@@ -33,7 +33,7 @@ public class ContractDetailService implements IContractDetailService {
         List<ContractDetail> contractDetailList = contractDetailRepository.findAll();
 
         for (ContractDetail iteam : contractDetailList) {
-            if (iteam.getContract().getId()==id){
+            if (iteam.getContract().getId_contract()==id){
                 attachFacilityList.add(iteam.getAttachFacility());
             }
         }

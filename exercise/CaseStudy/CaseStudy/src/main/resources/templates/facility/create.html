@@ -55,7 +55,7 @@
                                 <div class="text-danger" th:errors="*{maxPeople}"></div>
                             </td>
                         </tr>
-                        <tr>
+                        <tr id="opt1" style="display: none" >
                             <td>Loại phòng thương
                             </td>
                             <td>
@@ -65,7 +65,7 @@
                                 <div class="text-danger" th:errors="*{standardRoom}"></div>
                             </td>
                         </tr>
-                        <tr>
+                        <tr id="opt4" style="display: none" >
                             <td>Tiện lợi khác
                             </td>
                             <td>
@@ -75,7 +75,7 @@
                                 <div class="text-danger" th:errors="*{descriptionOtherConvenience}"></div>
                             </td>
                         </tr>
-                        <tr>
+                        <tr id="opt2" style="display: none" >
                             <td>Diện tích hồ bơi
                             </td>
                             <td>
@@ -85,7 +85,7 @@
                                 <div class="text-danger" th:errors="*{poolArea}"></div>
                             </td>
                         </tr>
-                        <tr>
+                        <tr id="opt3" style="display: none" >
                             <td>Số tầng
                             </td>
                             <td>
@@ -95,7 +95,7 @@
                                 <div class="text-danger" th:errors="*{numberOfFloors}"></div>
                             </td>
                         </tr>
-                        <tr>
+                        <tr id="opt5" style="display: none" >
                             <td>Dịch vụ miễn phí
                             </td>
                             <td>
@@ -110,7 +110,7 @@
                                 Kiểu dịch vụ
                             </td>
                             <td>
-                                <select th:field="*{facilityType}">
+                                <select th:field="*{facilityType}" onchange="changeForm(this)">
                                     <option th:each="p : ${facilityTypeList}"
                                             th:value="${p.id}"
                                             th:text="${p.name}"></option>
@@ -147,6 +147,39 @@
     $(function () {
         $("#name").title();
     });
+    function changeForm(type) {
+        let choseType = type.value;
+        switch (choseType) {
+            case "1":
+                document.getElementById("opt1").style.display = "block";
+                document.getElementById("opt2").style.display = "block";
+                document.getElementById("opt3").style.display = "block";
+                document.getElementById("opt4").style.display = "block";
+                document.getElementById("opt5").style.display = "none";
+                break;
+            case "2":
+                document.getElementById("opt1").style.display = "none";
+                document.getElementById("opt2").style.display = "none";
+                document.getElementById("opt3").style.display = "none";
+                document.getElementById("opt4").style.display = "none";
+                document.getElementById("opt5").style.display = "block";
+                break;
+            case "3":
+                document.getElementById("opt1").style.display = "block";
+                document.getElementById("opt2").style.display = "block";
+                document.getElementById("opt3").style.display = "none";
+                document.getElementById("opt4").style.display = "block";
+                document.getElementById("opt5").style.display = "none";
+                break;
+            default:
+                document.getElementById("opt1").style.display = "block";
+                document.getElementById("opt2").style.display = "block";
+                document.getElementById("opt3").style.display = "block";
+                document.getElementById("opt4").style.display = "block";
+                document.getElementById("opt5").style.display = "block";
+
+        }
+    }
 </script>
 
 </body>

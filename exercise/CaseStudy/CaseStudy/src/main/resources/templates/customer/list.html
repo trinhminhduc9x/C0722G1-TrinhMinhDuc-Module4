@@ -109,7 +109,7 @@
                         <!-- nút xem tổng số thành viên hiện -->
                         <td>
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#view"
-                                    th:attr="onclick=|infoToModal('${iteam.id}')|">
+                                    th:attr="onclick=|infoToModal('${iteam.id_customer}')|">
                                 xem
                             </button>
                         </td>
@@ -117,7 +117,7 @@
                         <td>
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                     data-bs-target="#exampleModal"
-                                    th:attr="onclick=|clickSave('${iteam.id}')|">
+                                    th:attr="onclick=|clickSave('${iteam.id_customer}')|">
                                 thêm
                             </button>
                         </td>
@@ -126,7 +126,7 @@
                         <td>
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"
-                                       th:attr="onclick=|getIdToDelete('${iteam.id}')|">
+                                       th:attr="onclick=|getIdToDelete('${iteam.id_customer}')|">
                                 <label class="form-check-label" for="flexCheckDefault">
                                     DELETE
                                 </label>
@@ -136,7 +136,7 @@
                         <!-- nút edit -->
                         <td>
                             <button class="btn">
-                                <a th:href="@{/customer/{id}/edit(id=${iteam.id})}">
+                                <a th:href="@{/customer/{id}/edit(id=${iteam.id_customer})}">
                                     <img src="/img/edit-2.png"
                                          style="height: 25px;width: auto">
                                 </a>
@@ -149,7 +149,7 @@
                                     class="btn"
                                     data-bs-toggle="modal"
                                     data-bs-target="#deleteButton"
-                                    th:attr="onclick=|showModalDelete('${iteam.id}','${iteam.name}')|">
+                                    th:attr="onclick=|showModalDelete('${iteam.id_customer}','${iteam.name}')|">
                                 <img src="/img/delete.png"
                                      style="height: 25px;width: auto">
                             </button>

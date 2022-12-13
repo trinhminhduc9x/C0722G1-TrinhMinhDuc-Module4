@@ -28,7 +28,7 @@ public class CustomerService implements ICustomerService {
 
     @Override
     public List<Customer> findListAll() {
-        return null;
+        return customerRepository.findAll();
     }
 
     @Override

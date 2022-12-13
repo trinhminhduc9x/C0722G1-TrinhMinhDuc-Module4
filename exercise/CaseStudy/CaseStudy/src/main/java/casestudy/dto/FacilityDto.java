@@ -23,12 +23,10 @@ import java.util.Set;
 @AllArgsConstructor
 public class FacilityDto implements Validator {
 
-
-    private Integer id;
+    private Integer id_facility;
 
     @NotBlank
     private String name;
-
 
     @NotBlank
     @Size(min = 1, max =3, message = "diện tích không được vượt quá 999 m2")

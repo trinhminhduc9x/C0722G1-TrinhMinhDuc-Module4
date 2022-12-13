@@ -87,6 +87,7 @@ public class facilityController {
 
     @GetMapping("/{id}/edit")
     public String edit(@PathVariable int id, Model model) {
+        model.addAttribute("facilityDto", iFacilityService.findById(id));
         return "/facility/update";
     }
 

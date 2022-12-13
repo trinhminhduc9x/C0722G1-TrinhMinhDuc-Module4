@@ -21,7 +21,7 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 public class CustomerDto implements Validator {
 
-    private Integer id;
+    private Integer id_customer;
 
     @Size(min = 5, max = 45)
     private String name;

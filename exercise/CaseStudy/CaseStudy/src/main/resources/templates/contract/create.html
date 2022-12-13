@@ -11,84 +11,74 @@
      style="text-align: center; font-size: 14px; background-image: linear-gradient(to top right, #EB9FC0, #B83F8F, #2C2867);height: 300vh; overflow:hidden ">
     <div class="row">
         <div class="col bg-light info">
-            <form action="/customer/save" method="post" th:object="${customerDto}">
+            <form action="/contract/save" method="post" th:object="${Contract}">
                 <fieldset>
                     <legend style="text-align: center"></legend>
                     <table>
                         <tr>
-                            <td>Tên Khách Hàng
+                            <td>Ngày bắt đầu
                             </td>
                             <td>
-                                <input type="text" name="tenChuHo" id="tenChuHo"
+                                <input type="date"
                                        class="form-control"
                                        title="Input cho dung' hi?"
-                                       th:field="*{name}">
-                                <div class="text-danger" th:errors="*{name}"></div>
+                                       th:field="*{startDate}">
+                                <div class="text-danger" th:errors="*{startDate}"></div>
                             </td>
                         </tr>
                         <tr>
-                            <td>Ngày sinh
+                            <td>Ngày kết thúc
                             </td>
                             <td>
                                 <input type="date" name="tenHonThe" id="tenHonThe"
                                        class="form-control"
                                        title="Input cho dung' hi?"
-                                       th:field="*{dateOfBirth}">
-                                <div class="text-danger" th:errors="*{dateOfBirth}"></div>
+                                       th:field="*{endDate}">
+                                <div class="text-danger" th:errors="*{endDate}"></div>
                             </td>
                         </tr>
                         <tr>
-                            <td>Giới tính
+                            <td>Số lượng dịch vụ đi kèm
                             </td>
                             <td>
-                                <input type="radio" th:field="*{gender}" value="0"/>MALE
-                                <input type="radio" th:field="*{gender}" value="1"/>FEMALE
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>số chứng minh nhân dân
-                            </td>
-                            <td>
-                                <input type="number" name="endtDate" id="endtDate" class="form-control"
-                                       th:field="*{idCard}">
-                                <div class="text-danger" th:errors="*{idCard}"></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>số điện thoại
-                            </td>
-                            <td>
-                                <input type="number" name="note" class="form-control"
-                                       th:field="*{phoneNumber}">
-                                <div class="text-danger" th:errors="*{phoneNumber}"></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>email
-                            </td>
-                            <td>
-                                <input type="email" name="phoneNumber" class="form-control"
-                                       th:field="*{email}">
-                                <div class="text-danger" th:errors="*{email}"></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td> địa chỉ
-                            </td>
-                            <td>
-                                <input type="text" name="phoneNumber" class="form-control"
-                                       th:field="*{address}">
-                                <div class="text-danger" th:errors="*{address}"></div>
+                                <input type="number"
+                                       class="form-control"
+                                       th:field="*{deposit}">
+                                <div class="text-danger" th:errors="*{deposit}"></div>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                Kiểu Khách Hàng
+                                Kiểu dịch vụ
                             </td>
                             <td>
-                                <select th:field="*{customerType}">
-                                    <option th:each="p : ${customerTypes}"
-                                            th:value="${p.id}"
+                                <select th:field="*{facility}">
+                                    <option th:each="p : ${facility}"
+                                            th:value="${p.id_facility}"
+                                            th:text="${p.name}"></option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Kiểu khách hàng
+                            </td>
+                            <td>
+                                <select th:field="*{customer}">
+                                    <option th:each="p : ${customer}"
+                                            th:value="${p.id_customer}"
+                                            th:text="${p.name}"></option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Kiểu dịch nhân viên
+                            </td>
+                            <td>
+                                <select th:field="*{employee}">
+                                    <option th:each="p : ${employee}"
+                                            th:value="${p.id_employee}"
                                             th:text="${p.name}"></option>
                                 </select>
                             </td>

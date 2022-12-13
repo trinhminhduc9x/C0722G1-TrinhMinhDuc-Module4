@@ -21,7 +21,7 @@ import java.util.List;
 public class Contract {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer id_contract;
     @Column(columnDefinition = "DATE")
     private String startDate;
     @Column(columnDefinition = "DATE")
@@ -29,13 +29,13 @@ public class Contract {
     private String deposit;
 
     @ManyToOne
-    @JoinColumn(name = "customer_id", referencedColumnName = "id")
+    @JoinColumn(name = "customer_id", referencedColumnName = "id_customer")
     private Customer customer;
     @ManyToOne
-    @JoinColumn(name = "employee_id", referencedColumnName = "id")
+    @JoinColumn(name = "employee_id", referencedColumnName = "id_employee")
     private Employee employee;
     @ManyToOne
-    @JoinColumn(name = "facility_id", referencedColumnName = "id")
+    @JoinColumn(name = "facility_id", referencedColumnName = "id_facility")
     private Facility facility;
 
     @OneToMany(mappedBy = "contract",cascade = CascadeType.REMOVE)
