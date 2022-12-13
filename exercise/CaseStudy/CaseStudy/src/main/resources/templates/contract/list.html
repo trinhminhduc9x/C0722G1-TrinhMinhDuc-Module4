@@ -27,7 +27,7 @@
                         <th scope="col">Tên Khách Hàng</th>
                         <th scope="col">Tên Nhân Viên</th>
                         <th scope="col">Tên Dịch Vụ</th>
-                        <th scope="col">Thêm dịch vụ đi kèm</th>
+                        <th scope="col">Thêm hợp đồng chi tiết</th>
                         <th scope="col">Xem dịch vụ đi kèm</th>
                     </tr>
                     </thead>
@@ -48,7 +48,7 @@
                         <td>
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                     data-bs-target="#exampleModal"
-                                    th:attr="onclick=|clickSave('${iteam.id}')|">
+                                    th:attr="onclick=|contractDetail('${iteam.id}')|">
                                 +
                             </button>
                         </td>
@@ -59,9 +59,6 @@
                                 xem dịch vụ đi kèm
                             </button>
                         </td>
-
-
-
                     </tr>
                     </tbody>
                 </table>
@@ -172,7 +169,7 @@
         <div class="modal-dialog ">
             <div class="modal-content bg-white">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel1">Bảng chi tiết</h5>
+                    <h5 class="modal-title" id="exampleModalLabel1">Dịch vụ đi kèm</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -181,24 +178,16 @@
                     <table class="table">
                         <thead>
                         <tr>
-                            <th scope="col">Dịch vụ đi kèm</th>
+                            <th scope="col">STT</th>
+                            <th scope="col">Tên Dịch Vụ</th>
+                            <th scope="col">Giá</th>
+                            <th scope="col">Trạng Thái</th>
+                            <th scope="col">Đơn vị</th>
+<!--                            <th scope="col">Tổng tiền</th>-->
                         </tr>
                         </thead>
                         <tbody id="myBodyPeople">
                         <!-- hien thi cac gia tri-->
-                        <tr>
-                            <table class="table">
-                                <thead>
-                                <tr>
-                                    <th scope="col">STT</th>
-                                    <th scope="col">Dịch vụ đi kèm</th>
-                                </tr>
-                                </thead>
-                                <tbody id="myBodyChild">
-                                <!-- hien thi cac gia tri-->
-                                </tbody>
-                            </table>
-                        </tr>
                         </tbody>
                     </table>
                 </div>
@@ -218,8 +207,44 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <label for="name">name</label>
-                    <input type="text" id="name"><br>
+                    <table class="table">
+                        <thead>
+                        <h5>Các dịch vụ hiện có</h5>
+                        <tr>
+                            <th scope="col">Mã dịch vụ</th>
+                            <th scope="col">Tên Dịch Vụ</th>
+                            <th scope="col">Giá</th>
+                            <th scope="col">Trạng Thái</th>
+                            <th scope="col">Đơn vị</th>
+                        </tr>
+                        </thead>
+                        <tbody id="myBodyAttach">
+                        <!-- hien thi cac gia tri-->
+                        </tbody>
+                    </table>
+                    <table>
+                        <h5>Thêm mới hợp đồng chi tiết</h5>
+                        <tr>
+                            <th>
+                                <label for="idAttach">Nhập mã dịch vụ đi kèm</label>
+                                <input type="number" id="idAttach"><br>
+                            </th>
+
+                        </tr>
+                        <tr>
+                            <th>
+                                <label for="quantity">Nhập số lượng dịch vụ đi kèm</label>
+                                <input type="number" id="quantity"><br>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>
+                                <label for="sumMonny">Tổng tiền phải thanh toán</label>
+                                <p id="sumMonny" >aaa</p>
+                            </th>
+                        </tr>
+                    </table>
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -228,7 +253,6 @@
             </div>
         </div>
     </div>
-
 </div>
 
 <div th:replace="layout :: footer"></div>
@@ -281,68 +305,110 @@
 
 <!-- ajac-->
 <script>
-    // <%--    thêm đối tượng hiển để thị chi tiết tường đối tượng bằng ajac--%>
+    // <%--   hien thị chi tiết tường đối tượng bằng ajac--%>
     function infoToModal(id) {
         console.log("bấm hiển thị chi tiết");
         $("#myBodyPeople").empty();
         $.ajax({
-            url: "http://localhost:8080/people/" + id,
+            url: "http://localhost:8080/rest/listContractDetail/" + id,
             type: "GET",
             contentType: "application/json; charset =utf-8",
             dataType: "json",
             success: function (data) {
-                let myTableShow = "";
-                myTableShow +=
-                    `
-                            <tr>
-                             <td>${data.name}</td>
-                              <td>${data.nameWife}</td>
-                            </tr>
-                            `
-                let myTableChild = "";
-                for (let i = 0; i < data.childHouseHoldList.length; i++) {
-                    myTableChild +=
+                console.log(data)
+                let myTableAttachFacility = "";
+                for (let i = 0; i < data.length; i++) {
+                    myTableAttachFacility +=
                         `
                             <tr>
-                              <th scope="row " class="text-danger">${i + 1}</th>
-                              <td>${data.childHouseHoldList[i].name}</td>
+                              <th  class="text-danger">${i + 1}</th>
+                              <td  class="text-danger">${data[i].name}</td>
+                              <td  class="text-danger">${data[i].cost}</td>
+                              <td  class="text-danger">${data[i].status}</td>
+                              <td  class="text-danger">${data[i].unit}</td>
                             </tr>
                             `
                 }
-                if (myTableChild.length == 0) {
-                    myTableChild +=
+                console.log("hello")
+                console.log(myTableAttachFacility)
+                if (myTableAttachFacility.length == 0) {
+                    myTableAttachFacility +=
                         `
                             <tr>
-                              <td>"gia đình chưa sinh con"</td>
+                              <td>"không có dịch vụ đi kèm</td>
                             </tr>
                             `
                 }
                 $("#myBodyChild").empty();
-                $("#myBodyPeople").append(myTableShow);
-                $("#myBodyChild").append(myTableChild);
+                $("#myBodyPeople").append(myTableAttachFacility);
             }
         })
     }
 </script>
 
-<!-- moi bằng ajax-->
+<script>
+
+</script>
+
+
+<!-- them moi dich vu  bằng ajax-->
 <script>
     let newId = 0;
 
-    function clickSave(id) {
+
+    // <%--   lấy list dịch vụ đi kèm băng--%>
+    function contractDetail(id) {
         newId = id;
+        console.log("bấm hiển thị chi tiết");
+        $("#myBodyPeople").empty();
+        $.ajax({
+            url: "http://localhost:8080/rest/listAttachFacility",
+            type: "GET",
+            contentType: "application/json; charset =utf-8",
+            dataType: "json",
+            success: function (data) {
+                console.log(data)
+                let myTableAttachFacility = "";
+                for (let i = 0; i < data.length; i++) {
+                    myTableAttachFacility +=
+                        `
+                            <tr>
+                           <td  class="text-danger">${data[i].id}</td>
+                              <td  class="text-danger">${data[i].name}</td>
+                              <td  class="text-danger">${data[i].cost}</td>
+                              <td  class="text-danger">${data[i].status}</td>
+                              <td  class="text-danger">${data[i].unit}</td>
+                            </tr>
+                            `
+                }
+                console.log(myTableAttachFacility)
+                if (myTableAttachFacility.length == 0) {
+                    myTableAttachFacility +=
+                        `
+                            <tr>
+                              <td>"không có dịch vụ đi kèm</td>
+                            </tr>
+                            `
+                }
+                $("#myBodyAttach").empty();
+                $("#myBodyAttach").append(myTableAttachFacility);
+            }
+        })
     }
 
     $("#save").click(function () {
         //lay du lieu
-        let name = $('#name').val();
-        let child = {
-            name: name,
+        let idAttach = $('#idAttach').val();
+        let quantity = $('#quantity').val();
+        let contract = {
+            attachFacility: idAttach,
+            quantity: quantity,
+            contract: newId,
             toString() {
                 return this.name;
             }
         };
-        console.log("Data là " + String(child));
+        console.log("Data là " + String(contract));
         // goi ajax
         $.ajax({
             headers: {
@@ -350,15 +416,14 @@
                 'Content-Type': 'application/json'
             },
             type: "POST",
-            data: JSON.stringify(child),
+            data: JSON.stringify(contract),
             //tên API
-            url: "http://localhost:8080/people/" + newId,
+            url: "http://localhost:8080/rest/createContractDetail",
             //xử lý khi thành công
         });
-        child = null;
         $("#name").empty();
-        // $('#exampleModal').hide();
-        // $('.modal-backdrop').hide();
+        $('#exampleModal').hide();
+        $('.modal-backdrop').hide();
     })
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"

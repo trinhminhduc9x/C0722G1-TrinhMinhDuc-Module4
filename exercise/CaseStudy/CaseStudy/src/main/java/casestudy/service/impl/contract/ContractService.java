@@ -17,4 +17,9 @@ public class ContractService implements IContractService {
     public Page<Contract> fildPageAll(Pageable pageable) {
         return contractRepository.findAll(pageable);
     }
+
+    @Override
+    public Contract findById(Integer id) {
+        return contractRepository.findById(id).orElse(new Contract());
+    }
 }

@@ -21,7 +21,6 @@ public class ContractDetail {
     private String quantity;
     @ManyToOne
     @JoinColumn(name = "contract_id", referencedColumnName = "id")
-    @JsonBackReference
     private Contract contract;
     @ManyToOne
     @JoinColumn(name = "attach_facility_id", referencedColumnName = "id")
