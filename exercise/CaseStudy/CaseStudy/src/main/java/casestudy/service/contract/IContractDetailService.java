@@ -11,6 +11,7 @@ import java.util.List;
 public interface IContractDetailService {
     List<ContractDetail> findListAll();
 
+    List<ContractDetail> findListContracDetailByIdContract(Integer contractId);
     ContractDetail findById(Integer id);
 
     List<AttachFacility> findListattachFacilityByContractId(Integer id);

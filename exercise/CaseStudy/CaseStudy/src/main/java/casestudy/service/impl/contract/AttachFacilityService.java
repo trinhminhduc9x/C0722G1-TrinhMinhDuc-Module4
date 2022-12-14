@@ -15,4 +15,9 @@ public class AttachFacilityService implements IAttachFacilityService {
     public List<AttachFacility> findListAll() {
         return attachFacilityRepository.findAll();
     }
+
+    @Override
+    public void save(AttachFacility attachFacility) {
+        attachFacilityRepository.save(attachFacility);
+    }
 }

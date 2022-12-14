@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout :: head">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div th:replace="layout :: header"></div>
+
+
+<div class="container d-flex justify-content-md-center mb-5"
+     style="text-align: center; font-size: 14px; background-image: linear-gradient(to top right, #EB9FC0, #B83F8F, #2C2867);height: 300vh; overflow:hidden ">
+    <div class="row">
+        <div class="col bg-light info">
+            <form method="post" action="/customer/update" th:object="${customerDto}">
+                <fieldset>
+                    <legend style="text-align: center">Information</legend>
+                    <table>
+                        <input type="hidden" th:field="*{id_customer}"/>
+                        <tr>
+                            <td>Tên Khách Hàng
+                            </td>
+                            <td>
+                                <input type="text" name="tenChuHo" id="tenChuHo"
+                                       class="form-control"
+                                       title="Input cho dung' hi?"
+                                       th:field="*{name}">
+                                <div class="text-danger" th:errors="*{name}"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Ngày sinh
+                            </td>
+                            <td>
+                                <input type="date" name="tenHonThe" id="tenHonThe"
+                                       class="form-control"
+                                       title="Input cho dung' hi?"
+                                       th:field="*{dateOfBirth}">
+                                <div class="text-danger" th:errors="*{dateOfBirth}"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Giới tính
+                            </td>
+                            <td>
+                                <input type="radio" th:field="*{gender}" value="0"/>MALE
+                                <input type="radio" th:field="*{gender}" value="1"/>FEMALE
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>số chứng minh nhân dân
+                            </td>
+                            <td>
+                                <input type="number" name="endtDate" id="endtDate" class="form-control"
+                                       th:field="*{idCard}">
+                                <div class="text-danger" th:errors="*{idCard}"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>số điện thoại
+                            </td>
+                            <td>
+                                <input type="number" name="note" class="form-control"
+                                       th:field="*{phoneNumber}">
+                                <div class="text-danger" th:errors="*{phoneNumber}"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>email
+                            </td>
+                            <td>
+                                <input type="email"
+                                       class="form-control"
+                                       th:field="*{email}">
+                                <div class="text-danger" th:errors="*{email}"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td> địa chỉ
+                            </td>
+                            <td>
+                                <input type="text"
+                                       class="form-control"
+                                       th:field="*{address}">
+                                <div class="text-danger" th:errors="*{address}"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Kiểu Khách Hàng
+                            </td>
+                            <td>
+                                <select th:field="*{customerType}">
+                                    <option th:each="p : ${customerTypes}"
+                                            th:value="${p.id}"
+                                            th:text="${p.name}"></option>
+                                </select>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td><input type="reset" value="Clear"></td>
+                            <td><input type="submit" value="submit" class=" btn-success"></td>
+                        </tr>
+                    </table>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div th:replace="layout :: footer"></div>
+<script src="/js/bootstrap.js"></script>
+</body>
+</html>

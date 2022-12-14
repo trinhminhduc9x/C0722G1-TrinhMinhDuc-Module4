@@ -23,6 +23,11 @@ public class ContractDetailService implements IContractDetailService {
     }
 
     @Override
+    public List<ContractDetail> findListContracDetailByIdContract(Integer contractId) {
+        return contractDetailRepository.findListContracDetailByIdContract(contractId);
+    }
+
+    @Override
     public ContractDetail findById(Integer id) {
         return contractDetailRepository.findById(id).orElse(new ContractDetail());
     }

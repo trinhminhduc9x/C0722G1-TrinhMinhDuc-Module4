@@ -84,6 +84,22 @@ public class contractController {
     }
 
 
+    @ModelAttribute("ContractNew")
+    public Contract getContract() {
+        Contract contract = new Contract();
+        return contract;
+    }
+
+    @ModelAttribute("ContractDetailNew")
+    public ContractDetail getContractDetail() {
+        ContractDetail contractDetail = new ContractDetail();
+        return contractDetail;
+    }
+    @ModelAttribute("AttachFacilityNew")
+    public AttachFacility getAttachFacility() {
+        AttachFacility attachFacility = new AttachFacility();
+        return attachFacility;
+    }
     @GetMapping("/list")
     public String showPage(Model model,
                            @PageableDefault(size = 6) Pageable pageable) {
@@ -94,15 +110,32 @@ public class contractController {
 
     @GetMapping("/create")
     public String create(Model model) {
-        model.addAttribute("Contract", new Contract());
         return "/contract/create";
     }
 
     @PostMapping("/save")
-    public String save(@ModelAttribute("contract") Contract contract
-            , BindingResult bindingResult
-            , RedirectAttributes redirectAttributes, Model model) {
+    public String save(@ModelAttribute("ContractNew") Contract contract
+            , RedirectAttributes redirectAttributes) {
         iContractService.save(contract);
+        redirectAttributes.addFlashAttribute("msg", " Create form " + " ok ");
+        return "redirect:/contract/list";
+    }
+
+    @PostMapping("/saveAttach")
+    public String saveAttach(@ModelAttribute("AttachFacilityNew") AttachFacility attachFacility
+            , RedirectAttributes redirectAttributes) {
+        iAttachFacilityService.save(attachFacility);
+        redirectAttributes.addFlashAttribute("msg", " Create form " + " ok ");
+        return "redirect:/contract/list";
+    }
+
+
+    @PostMapping("/saveContractDetail")
+    public String saveAttach(@ModelAttribute("ContractDetailNew") ContractDetail contractDetail
+                             ,@RequestParam(name = "contractId") Integer id
+            , RedirectAttributes redirectAttributes) {
+        contractDetail.setContract(iContractService.findById(id));
+        iContractDetailService.save(contractDetail);
         redirectAttributes.addFlashAttribute("msg", " Create form " + " ok ");
         return "redirect:/contract/list";
     }

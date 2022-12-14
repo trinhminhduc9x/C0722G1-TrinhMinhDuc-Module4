@@ -35,35 +35,22 @@ public class restController {
         return new ResponseEntity<>(facilityList, HttpStatus.OK);
     }
 
-
-    @GetMapping("/listContractDetail")
-    public ResponseEntity<List<ContractDetail>> showListContractDetail() {
-        List<ContractDetail> contractDetailList = iContractDetailService.findListAll();
-        if (contractDetailList.isEmpty()) {
+    @GetMapping("/listContractDetail/{id}")
+    public ResponseEntity<List<ContractDetail>> listContractDetailByContractId(@PathVariable Integer id) {
+        List<ContractDetail> contractDetailList = iContractDetailService.findListContracDetailByIdContract(id);
+        if (contractDetailList == null) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(contractDetailList, HttpStatus.OK);
     }
 
-
-    @GetMapping("/listContractDetail/{id}")
-    public ResponseEntity<List<AttachFacility>> ListattachFacilityByContractId(@PathVariable Integer id) {
+    @GetMapping("/listAttachFacility/{id}")
+    public ResponseEntity<List<AttachFacility>> listAttachFacilityByContractId(@PathVariable Integer id) {
         List<AttachFacility> attachFacilityList = iContractDetailService.findListattachFacilityByContractId(id);
         if (attachFacilityList == null) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(attachFacilityList, HttpStatus.OK);
-    }
-
-
-    @PostMapping("/{id}/ContractDetail")
-    public ResponseEntity createContractDetailId(@PathVariable Integer id,@RequestBody ContractDetail contractDetail) {
-        contractDetail.setContract(iContractService.findById(id));
-        iContractDetailService.save(contractDetail);
-        if (contractDetail == null) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-        return new ResponseEntity<>(contractDetail, HttpStatus.CREATED);
     }
 
     @PostMapping("/createContractDetail")

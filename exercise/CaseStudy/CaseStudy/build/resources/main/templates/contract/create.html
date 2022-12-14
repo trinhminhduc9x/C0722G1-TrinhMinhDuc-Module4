@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout :: head">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div th:replace="layout :: header"></div>
+
+<div class="container d-flex justify-content-md-center mb-5"
+     style="text-align: center; font-size: 14px; background-image: linear-gradient(to top right, #EB9FC0, #B83F8F, #2C2867);height: 300vh; overflow:hidden ">
+    <div class="row">
+        <div class="col bg-light info">
+            <form action="/contract/save" method="post" th:object="${Contract}">
+                <fieldset>
+                    <legend style="text-align: center"></legend>
+                    <table>
+                        <tr>
+                            <td>Ngày bắt đầu
+                            </td>
+                            <td>
+                                <input type="date"
+                                       class="form-control"
+                                       title="Input cho dung' hi?"
+                                       th:field="*{startDate}">
+                                <div class="text-danger" th:errors="*{startDate}"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Ngày kết thúc
+                            </td>
+                            <td>
+                                <input type="date" name="tenHonThe" id="tenHonThe"
+                                       class="form-control"
+                                       title="Input cho dung' hi?"
+                                       th:field="*{endDate}">
+                                <div class="text-danger" th:errors="*{endDate}"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Số lượng dịch vụ đi kèm
+                            </td>
+                            <td>
+                                <input type="number"
+                                       class="form-control"
+                                       th:field="*{deposit}">
+                                <div class="text-danger" th:errors="*{deposit}"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Kiểu dịch vụ
+                            </td>
+                            <td>
+                                <select th:field="*{facility}">
+                                    <option th:each="p : ${facility}"
+                                            th:value="${p.id_facility}"
+                                            th:text="${p.name}"></option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Kiểu khách hàng
+                            </td>
+                            <td>
+                                <select th:field="*{customer}">
+                                    <option th:each="p : ${customer}"
+                                            th:value="${p.id_customer}"
+                                            th:text="${p.name}"></option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Kiểu dịch nhân viên
+                            </td>
+                            <td>
+                                <select th:field="*{employee}">
+                                    <option th:each="p : ${employee}"
+                                            th:value="${p.id_employee}"
+                                            th:text="${p.name}"></option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><input type="reset" value="Clear"></td>
+                            <td><input type="submit" value="submit" class=" btn-success"></td>
+                        </tr>
+                    </table>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div th:replace="layout :: footer"></div>
+
+
+<script>
+    $(function () {
+        $("#name").title();
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout :: head">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div th:replace="layout :: header"></div>
+
+
+<div class="container d-flex justify-content-md-center mb-5"
+     style="text-align: center; font-size: 14px; background-image: linear-gradient(to top right, #EB9FC0, #B83F8F, #2C2867);height: 300vh; overflow:hidden ">
+    <div class="row">
+        <div class="col bg-light info">
+            <form action="/facility/save" method="post" th:object="${facilityDto}">
+                <fieldset>
+                    <legend style="text-align: center"></legend>
+                    <table>
+                        <tr>
+                            <td>Tên Dịch Vụ
+                            </td>
+                            <td>
+                                <input type="text"
+                                       class="form-control"
+                                       th:field="*{name}">
+                                <div class="text-danger" th:errors="*{name}"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Diện Tích Phòng
+                            </td>
+                            <td>
+                                <input type="number"
+                                       class="form-control"
+                                       th:field="*{area}">
+                                <div class="text-danger" th:errors="*{area}"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Giá cả
+                            </td>
+                            <td>
+                                <input type="number"
+                                       class="form-control"
+                                       th:field="*{cost}">
+                                <div class="text-danger" th:errors="*{cost}"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Số người tối đa
+                            </td>
+                            <td>
+                                <input type="number" class="form-control"
+                                       th:field="*{maxPeople}">
+                                <div class="text-danger" th:errors="*{maxPeople}"></div>
+                            </td>
+                        </tr>
+                        <tr id="opt1" style="display: none" >
+                            <td>Loại phòng thương
+                            </td>
+                            <td>
+                                <input type="text"
+                                       class="form-control"
+                                       th:field="*{standardRoom}">
+                                <div class="text-danger" th:errors="*{standardRoom}"></div>
+                            </td>
+                        </tr>
+                        <tr id="opt4" style="display: none" >
+                            <td>Tiện lợi khác
+                            </td>
+                            <td>
+                                <input type="text"
+                                       class="form-control"
+                                       th:field="*{descriptionOtherConvenience}">
+                                <div class="text-danger" th:errors="*{descriptionOtherConvenience}"></div>
+                            </td>
+                        </tr>
+                        <tr id="opt2" style="display: none" >
+                            <td>Diện tích hồ bơi
+                            </td>
+                            <td>
+                                <input type="number"
+                                       class="form-control"
+                                       th:field="*{poolArea}">
+                                <div class="text-danger" th:errors="*{poolArea}"></div>
+                            </td>
+                        </tr>
+                        <tr id="opt3" style="display: none" >
+                            <td>Số tầng
+                            </td>
+                            <td>
+                                <input type="number"
+                                       class="form-control"
+                                       th:field="*{numberOfFloors}">
+                                <div class="text-danger" th:errors="*{numberOfFloors}"></div>
+                            </td>
+                        </tr>
+                        <tr id="opt5" style="display: none" >
+                            <td>Dịch vụ miễn phí
+                            </td>
+                            <td>
+                                <input type="text"
+                                       class="form-control"
+                                       th:field="*{facilityFree}">
+                                <div class="text-danger" th:errors="*{facilityFree}"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Kiểu dịch vụ
+                            </td>
+                            <td>
+                                <select th:field="*{facilityType}" onchange="changeForm(this)">
+                                    <option th:each="p : ${facilityTypeList}"
+                                            th:value="${p.id}"
+                                            th:text="${p.name}"></option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Kiểu thuê
+                            </td>
+                            <td>
+                                <select th:field="*{rentType}">
+                                    <option th:each="p : ${iRentTypeList}"
+                                            th:value="${p.id}"
+                                            th:text="${p.name}"></option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><input type="reset" value="Clear"></td>
+                            <td><input type="submit" value="submit" class=" btn-success"></td>
+                        </tr>
+                    </table>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div th:replace="layout :: footer"></div>
+
+
+<script>
+    $(function () {
+        $("#name").title();
+    });
+    function changeForm(type) {
+        let choseType = type.value;
+        switch (choseType) {
+            case "1":
+                document.getElementById("opt1").style.display = "block";
+                document.getElementById("opt2").style.display = "block";
+                document.getElementById("opt3").style.display = "block";
+                document.getElementById("opt4").style.display = "block";
+                document.getElementById("opt5").style.display = "none";
+                break;
+            case "2":
+                document.getElementById("opt1").style.display = "none";
+                document.getElementById("opt2").style.display = "none";
+                document.getElementById("opt3").style.display = "none";
+                document.getElementById("opt4").style.display = "none";
+                document.getElementById("opt5").style.display = "block";
+                break;
+            case "3":
+                document.getElementById("opt1").style.display = "block";
+                document.getElementById("opt2").style.display = "block";
+                document.getElementById("opt3").style.display = "none";
+                document.getElementById("opt4").style.display = "block";
+                document.getElementById("opt5").style.display = "none";
+                break;
+            default:
+                document.getElementById("opt1").style.display = "block";
+                document.getElementById("opt2").style.display = "block";
+                document.getElementById("opt3").style.display = "block";
+                document.getElementById("opt4").style.display = "block";
+                document.getElementById("opt5").style.display = "block";
+
+        }
+    }
+</script>
+
+</body>
+</html>
