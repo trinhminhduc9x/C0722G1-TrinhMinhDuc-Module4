@@ -22,8 +22,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.boot:spring-boot-starter-security'
-    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
+
 
     runtimeOnly 'mysql:mysql-connector-java'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
@@ -34,11 +33,17 @@ dependencies {
 
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    runtimeOnly 'com.mysql:mysql-connector-j'
 
-    implementation group: 'org.springframework.security', name: 'spring-security-web', version: '5.7.1'
-    implementation group: 'org.springframework.security', name: 'spring-security-config', version: '5.7.1'
-    implementation group: 'org.springframework.security', name: 'spring-security-taglibs', version: '5.7.1'
-    implementation group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-springsecurity5', version: '3.0.4.RELEASE'
+//    implementation group: 'org.springframework.security', name: 'spring-security-web', version: '5.7.1'
+//    implementation group: 'org.springframework.security', name: 'spring-security-config', version: '5.7.1'
+//    implementation group: 'org.springframework.security', name: 'spring-security-taglibs', version: '5.7.1'
+//    implementation group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-springsecurity5', version: '3.0.4.RELEASE'
+//
+//    implementation 'org.springframework.boot:spring-boot-starter-security'
+//    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
+
 
 }
 

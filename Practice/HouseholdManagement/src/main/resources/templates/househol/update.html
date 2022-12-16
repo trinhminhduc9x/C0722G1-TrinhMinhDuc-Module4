@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout :: head">
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+<div th:replace="layout :: header"></div>
+
+
+<div class="container d-flex justify-content-md-center mb-5"
+     style="text-align: center; font-size: 14px; background-image: linear-gradient(to top right, #EB9FC0, #B83F8F, #2C2867);height: 300vh; overflow:hidden ">
+  <div class="row">
+    <div class="col bg-light info">
+      <form method="post" action="/househol/update" th:object="${householDto}">
+        <fieldset>
+          <legend style="text-align: center">Information</legend>
+          <table>
+            <input type="hidden" th:field="*{idHousehol}"/>
+            <tr>
+              <td>
+                Tên chủ hộ
+              </td>
+              <td>
+                <select th:field="*{members}">
+                  <option th:each="p : ${MemberList}"
+                          th:value="${p.idMember}"
+                          th:text="${p.name}"></option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td>Ngày lập hộ khẩu
+              </td>
+              <td>
+                <input type="date"
+                       class="form-control"
+                       th:field="*{startDay}">
+                <div class="text-danger" th:errors="*{startDay}"></div>
+              </td>
+            </tr>
+            <tr>
+              <td>Địa chỉ
+              </td>
+              <td>
+                <input type="text"
+                       class="form-control"
+                       th:field="*{address}">
+                <div class="text-danger" th:errors="*{address}"></div>
+              </td>
+            </tr>
+
+            <tr>
+              <td><input type="reset" value="Clear"></td>
+              <td><input type="submit" value="submit" class=" btn-success"></td>
+            </tr>
+          </table>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div th:replace="layout :: footer"></div>
+<script src="/js/bootstrap.js"></script>
+</body>
+</html>

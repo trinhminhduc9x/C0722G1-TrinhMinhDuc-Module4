@@ -45,8 +45,9 @@ public class Employee {
     @OneToMany(mappedBy = "employee",cascade = CascadeType.REMOVE)
     @JsonBackReference
     private Set<Contract> contracts;
-    @ManyToOne
-    @JoinColumn(name = "user_name",referencedColumnName = "username")
-    private User user;
+
+//    @ManyToOne
+//    @JoinColumn(name = "user_name",referencedColumnName = "username")
+//    private User user;
 
 }
