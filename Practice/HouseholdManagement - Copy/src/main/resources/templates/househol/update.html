@@ -23,7 +23,7 @@
               </td>
               <td>
                 <select th:field="*{members}">
-                  <option th:each="p : ${memberList}"
+                  <option th:each="p : ${MemberList}"
                           th:value="${p.idMember}"
                           th:text="${p.name}"></option>
                 </select>

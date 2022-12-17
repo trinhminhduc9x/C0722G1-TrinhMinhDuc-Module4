@@ -35,7 +35,7 @@ public class HouseholController {
 
     @GetMapping("/list")
     public String showPage(Model model,
-                           @PageableDefault(size = 3) Pageable pageable) {
+                           @PageableDefault(size =3) Pageable pageable) {
         Page<HouseholView> householViewPage = iHouseholService.fildPageAll(pageable);
         model.addAttribute("householViewPage", householViewPage);
         return "househol/list";
@@ -59,26 +59,12 @@ public class HouseholController {
             Househol househol = new Househol();
             BeanUtils.copyProperties(householDto, househol);
             iHouseholService.save(househol);
-
-
-            Member memberNew = new Member();
-            BeanUtils.copyProperties(iHouseholService.findByIdMeber(householDto.getMembers().getIdMember()), memberNew);
-
-            memberNew.setMemberType(iHouseholService.findByIdMemberType(1));
-            memberNew.setHousehol(househol);
-            memberNew.setIdMember(null);
-
-            iHouseholService.saveMember(memberNew);
-
-            redirectAttributes.addFlashAttribute("msg", " Create form " + " ok ");
+            redirectAttributes.addFlashAttribute("msg", " Create form "  + " ok ");
             return "redirect:/househol/list";
         }
     }
-
     @GetMapping("/{id}/edit")
     public String edit(@PathVariable int id, Model model) {
-        List<Member> memberList = iHouseholService.findMemberById(id);
-        model.addAttribute("memberList", memberList);
         model.addAttribute("householDto", iHouseholService.findById(id));
         return "/househol/update";
     }
@@ -87,21 +73,12 @@ public class HouseholController {
     public String update(@Validated
                          @ModelAttribute("householDto") HouseholDto householDto
             , BindingResult bindingResult
-            , RedirectAttributes redirectAttributes) {
+            , RedirectAttributes redirectAttributes ) {
         new HouseholDto().validate(householDto, bindingResult);
         if (bindingResult.hasFieldErrors()) {
             return "/househol/update";
         } else {
             Househol househol = new Househol();
-            List<Member> memberList = iHouseholService.findMemberById(householDto.getIdHousehol());
-            for (int i = 0; i < memberList.size(); i++) {
-                if (memberList.get(i).getMemberType().getIdMemberType() == 1) {
-                    memberList.get(i).setMemberType(iHouseholService.findByIdMemberType(2));
-                }
-            }
-            Integer idMemberNew = householDto.getMembers().getIdMember();
-            iHouseholService.findByIdMeber(idMemberNew).setMemberType(iHouseholService.findByIdMemberType(1));
-
             BeanUtils.copyProperties(householDto, househol);
             iHouseholService.save(househol);
             redirectAttributes.addFlashAttribute("msg", " update form " + " ok ");

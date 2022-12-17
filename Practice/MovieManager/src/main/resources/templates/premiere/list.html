@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout :: head">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../static/bootstrap-5.0.2-dist/css/bootstrap.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+<div th:replace="layout :: header"></div>
+
+<div style="text-align: center; font-size: 14px; background-image: linear-gradient(to top right, #EB9FC0, #B83F8F, #2C2867);height: 90vh; overflow:hidden ">
+    <div class="container">
+        <div class="row">
+            <!--thêm mới đối tượng đang có-->
+            <div class="col-md-3 ">
+                <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
+                        data-bs-target="#exampleModal">
+                    <a href="/househol/create" class="btn btn-success">Add </a>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!--hiện thị danh sách đối tượng-->
+    <table class="table table-hover" style="background-color: #E2F0EB4D">
+        <thead>
+        <tr class="table" style="background-color: #E2F0EB4D">
+            <th scope="col">Số thứ tự</th>
+            <th scope="col">Mã xuất chiếu</th>
+            <th scope="col">Tên phim</th>
+            <th scope="col">Ngày chiếu</th>
+            <th scope="col">Số lượng vé</th>
+            <th scope="col">xoa</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- code để nhận list đang có-->
+        <tr class="table-table-hover" th:each="iteam, loop : ${premierePage}" style="background-color: #E2F0EB4D">
+
+            <th scope="row" th:text="${loop.count}"></th>
+            <td th:text="'CI-000'+${iteam.idPremiere}"></td>
+            <td th:text="${iteam.movie.nameMovie}"></td>
+            <td th:text="${iteam.dayPremiere}"></td>
+            <td th:text="${iteam.numberPremiere}"></td>
+
+
+            <!-- nút xóa -->
+
+            <td>
+                <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
+                        data-bs-target="#deleteButton"
+                        th:attr="onclick=|showModalDelete('${iteam.idPremiere}','${iteam.movie.nameMovie}')|">
+                    xóa
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<!-- Phan Trang -->
+<div class="d-flex justify-content-end ">
+    <ul class="pagination">
+        <li class="page-item disabled" th:if="${premierePage.number == 0}">
+            <a class="page-link" href="">Previous</a>
+        </li>
+        <li class="page-item" th:if="${premierePage.number > 0}">
+            <a class="page-link"
+               th:href="@{/premiere/list(page=${premierePage.number - 1})}">Previous</a>
+        </li>
+        <li class="page-item disabled">
+            <a class="page-link" href=""><span th:text="${premierePage.number + 1}"></span> / <span
+                    th:text="${premierePage.totalPages}"></span></a>
+        </li>
+        <li class="page-item disabled" th:if="${premierePage.number >= premierePage.totalPages - 1}">
+            <a class="page-link" href="">Next</a>
+        </li>
+        <li class="page-item" th:if="${premierePage.number < premierePage.totalPages - 1}">
+            <a class="page-link"
+               th:href="@{/premiere/list(page=${premierePage.number + 1})}">Next</a>
+        </li>
+    </ul>
+</div>
+
+<!--modal delete-->
+<div class="modal fade" id="deleteButton" tabindex="-1" aria-labelledby="exampleModalLabelDelete"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <form action="/premiere/delete" method="post">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabelDelete">Deleting</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Are you sure about that?
+                    Delete <span class="fw-bold text-danger" id="nameDelete"></span>?
+                    <input type="hidden" id="idDelete" name="idDelete">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">&#10006;
+                    </button>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!--call modal notice-->
+<input type="hidden" id="noticeMsgModal" th:value="${msg}">
+
+<!-- Modal notice -->
+<div class="modal fade" id="noticeMsg" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content rounded-3 shadow">
+            <div class="modal-header">
+                <h5 class="modal-title">Furama 's notice</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <span th:text="${msg}"></span>
+                <img src="https://media0.giphy.com/media/AWIm1O6FjmCtsI2Pru/giphy.gif?cid=790b7611e14412e5147aee187464a8df9dfeea3085950a9a&rid=giphy.gif&ct=s"
+                     style="width: 35px; height: auto"
+                     alt="">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal">&#10004;</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Delete tất cả đối tượng -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <form action="/contract/delete" method="post">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title text-danger" id="exampleModalLabelAll"></h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                </div>
+                <div class="modal-body ">
+                    <input type="hidden" readonly name="stringArr" id="stringArr" class="form-control"><br>
+                    <h3 class="text-danger">Bạn có chắc chắn xóa hay không</h3>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" value="delete">Yes</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Modal xem chi tiết từng đối tượng-->
+<div class="modal fade " id="view" tabindex="-1" aria-labelledby="exampleModalLabel"
+     aria-hidden="true"
+     style="color: #0000ff">
+    <div class="modal-dialog ">
+        <div class="modal-content bg-white">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel1">Dịch vụ đi kèm</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"></span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">STT</th>
+                        <th scope="col">Họ và Tên</th>
+                        <th scope="col">số CMND</th>
+                        <th scope="col"> Ngay sinh</th>
+                        <th scope="col">Kiểu thành viên</th>
+                    </tr>
+                    </thead>
+                    <tbody id="myTable">
+                    <!-- hien thi cac gia tri-->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<div th:replace="layout :: footer"></div>
+
+<!--script delete-->
+<script>
+    // fuction hiển thị modal delete đối tượng
+    function showModalDelete(id, name) {
+        document.getElementById("idDelete").value = id;
+        document.getElementById("nameDelete").value = name;
+    }
+
+    // hiển thị noice khi xóa đối tượng
+    window.onload = function () {
+        let msg = $("#noticeMsgModal").val();
+        if (msg != null && msg !== "") {
+            $(document).ready(function () {
+                $("#noticeMsg").modal("show");
+            });
+        }
+    }
+</script>
+
+<!--script delete all-->
+<script>
+    let arr = new Array();
+
+    // <%--    chuyen arr qua chuoi--%>
+    function stringArr() {
+        let stringArr = arr.toString();
+        console.log(stringArr);
+        document.getElementById("stringArr").value = stringArr;
+    }
+
+    // <%--    thêm value cho thẻ delete--%>
+    function getIdToDelete(id) {
+        arr.push(id)
+    }
+
+    // hiển thị noice khi xóa đối tượng
+    window.onload = function () {
+        let msg = $("#noticeMsgModal").val();
+        if (msg != null && msg !== "") {
+            $(document).ready(function () {
+                $("#noticeMsg").modal("show");
+            });
+        }
+    }
+</script>
+
+<!-- ajac-->
+<script>
+    // <%--   hien thị chi tiết tường đối tượng bằng ajac--%>
+    function infoToModal(id) {
+        console.log("bấm hiển thị chi tiết");
+        $("#myBodyPeople").empty();
+        $.ajax({
+            url: "http://localhost:8080/rest/listHousehol/" + id,
+            type: "GET",
+            contentType: "application/json; charset =utf-8",
+            dataType: "json",
+            success: function (data) {
+                console.log(data)
+                let myTableAttachFacility = "";
+                for (let i = 0; i < data.length; i++) {
+                    myTableAttachFacility +=
+                        `
+                            <tr>
+                              <th  class="text-danger">${i + 1}</th>
+                              <td  class="text-danger">${data[i].name}</td>
+                              <td  class="text-danger">${data[i].idCard}</td>
+                              <td  class="text-danger">${data[i].dateOfBirth}</td>
+                              <td  class="text-danger">${data[i].memberType.nameType}</td>
+                            </tr>
+                            `
+                }
+                console.log(myTableAttachFacility)
+                if (myTableAttachFacility.length == 0) {
+                    myTableAttachFacility +=
+                        `
+                            <tr>
+                              <td>"không có thành viên</td>
+                            </tr>
+                            `
+                }
+                $("#myTable").empty();
+                $("#myTable").append(myTableAttachFacility);
+            }
+        })
+    }
+</script>
+
+<script>
+    // <%--   hien thị chi tiết tường đối tượng bằng ajac--%>
+    function aaainfoToModal(id) {
+        document.getElementById("contractId").value = id;
+        console.log("bấm hiển thị dh chi tiết");
+        $("#myBodyPeople").empty();
+        $.ajax({
+            url: "http://localhost:8080/rest/listContractDetail/" + id,
+            type: "GET",
+            contentType: "application/json; charset =utf-8",
+            dataType: "json",
+            success: function (data) {
+                console.log(data)
+                let sumMony = 0;
+                let myTableContractDetail = "";
+                for (let i = 0; i < data.length; i++) {
+                    myTableContractDetail +=
+                        `
+                            <tr>
+                              <th  class="text-danger">${i + 1}</th>
+                              <td  class="text-danger">${data[i].attachFacility.name}</td>
+                              <td  class="text-danger">${data[i].quantity}</td>
+                              <td  class="text-danger">${data[i].attachFacility.cost}</td>
+                            </tr>
+                            `
+                    sumMony = sumMony + Number(data[i].quantity) * Number(data[i].attachFacility.cost)
+                }
+                console.log(sumMony)
+                console.log(myTableContractDetail)
+
+                $("#myTableContractDetail").empty();
+                $("#myTableContractDetail").append(myTableContractDetail);
+            }
+        })
+    }
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+</body>
+</html>

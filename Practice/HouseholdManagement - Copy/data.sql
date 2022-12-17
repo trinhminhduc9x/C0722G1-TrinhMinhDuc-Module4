@@ -1,8 +1,9 @@
-use househol;
+use householnew;
 
-SELECT * FROM househol.househol;
+SELECT * FROM househol;
 
-SELECT * FROM househol.member;
+SELECT * FROM member;
+
 -- join cac bang
 SELECT *
 FROM househol h 
@@ -18,7 +19,7 @@ h.address as address
 FROM member m 
 JOIN
 househol h 
-ON h.id_househol = m.househol_id
+ON h.member_id = m.id_member
 where m.member_type_id = 1;
 
 
@@ -28,6 +29,7 @@ ALTER TABLE househol
 DROP COLUMN member_id;
 
 -- đêm các id giống nhau trong 1 bang
+
  SELECT 
  COUNT(househol_id) as count
    FROM member

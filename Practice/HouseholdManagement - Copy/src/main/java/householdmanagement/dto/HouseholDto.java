@@ -30,7 +30,7 @@ public class HouseholDto implements Validator {
     @NotBlank
     private String address;
 
-    private Member members;
+    private Member member;
 
 
     @Override
